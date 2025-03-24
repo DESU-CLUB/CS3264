@@ -1,0 +1,11 @@
+[project]
+name = "cs3264"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11, <=3.12"
+dependencies = [
+    "openai>=1.68.2",
+    "pandas>=2.2.3",
+    "streamlit>=1.43.2",
+]
