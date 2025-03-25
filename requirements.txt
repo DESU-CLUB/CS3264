@@ -3,3 +3,4 @@ streamlit
 groq
 openai
 flask
+dotenv
