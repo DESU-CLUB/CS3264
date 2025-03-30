@@ -288,7 +288,7 @@ def stream_analysis():
                     logger.debug("Creating Groq streaming request")
                     # Call Groq API with streaming
 
-                    chat_history.add_message({"role": "user", "content": prompt})
+                    chat_history.add_user_message({"role": "user", "content": prompt})
 
                     stream = groq_client.chat.completions.create(
                         model="llama3-70b-8192",  # or another available model
