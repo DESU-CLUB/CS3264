@@ -81,6 +81,7 @@ if uploaded_file is not None:
                 json={
                     "columns": st.session_state.data.get("columns", []),
                     "query": prompt,
+                    "file_path": uploaded_file.name,
                 },
                 stream=True,
             ) as stream_response:

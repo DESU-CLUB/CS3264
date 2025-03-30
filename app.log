@@ -1,0 +1,395 @@
+2025-03-28 04:46:01,986 - __main__ - INFO - Starting Flask application
+2025-03-28 04:46:01,991 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 04:46:01,991 - werkzeug - INFO -  * Debugger PIN: 604-902-347
+2025-03-28 04:46:18,588 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:46:18,589 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:46:20,001 - __main__ - INFO - Starting Flask application
+2025-03-28 04:46:20,006 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 04:46:20,006 - werkzeug - INFO -  * Debugger PIN: 136-996-676
+2025-03-28 04:46:29,558 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 04:46:29] "POST /upload HTTP/1.1" 200 -
+2025-03-28 04:46:29,567 - __main__ - INFO - Starting stream_analysis function
+2025-03-28 04:46:29,567 - __main__ - INFO - Request data: columns=9, query=Hello..., file_path=
+2025-03-28 04:46:29,567 - __main__ - INFO - Setting up streaming response
+2025-03-28 04:46:29,568 - __main__ - INFO - Starting generate function in stream_analysis
+2025-03-28 04:46:29,568 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 04:46:29] "POST /stream_analysis HTTP/1.1" 200 -
+2025-03-28 04:46:29,569 - __main__ - WARNING - File path not provided or file doesn't exist: 
+2025-03-28 04:46:29,569 - __main__ - INFO - Sending request to Groq
+2025-03-28 04:46:30,428 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-28 04:46:30,428 - __main__ - INFO - Groq stream created, processing chunks
+2025-03-28 04:46:30,432 - __main__ - INFO - Tool call detected in response
+2025-03-28 04:46:30,432 - __main__ - INFO - Tool call for columns: {'Pregnancies': '', 'Glucose': '', 'BloodPressure': '', 'SkinThickness': '', 'Insulin': '', 'BMI': '', 'DiabetesPedigreeFunction': '', 'Age': '', 'Outcome': ''}
+2025-03-28 04:46:30,435 - __main__ - INFO - Processed 3 chunks from Groq
+2025-03-28 04:46:30,435 - __main__ - INFO - Analysis complete, yielding final message
+2025-03-28 04:49:15,556 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:49:15,556 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:49:15,566 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:49:16,410 - __main__ - INFO - Starting Flask application
+2025-03-28 04:49:16,416 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 04:49:16,416 - werkzeug - INFO -  * Debugger PIN: 254-646-305
+2025-03-28 04:49:20,215 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 04:49:20] "POST /upload HTTP/1.1" 200 -
+2025-03-28 04:49:20,226 - __main__ - INFO - Starting stream_analysis function
+2025-03-28 04:49:20,226 - __main__ - INFO - Request data: columns=9, query=Hello..., file_path=
+2025-03-28 04:49:20,226 - __main__ - INFO - Setting up streaming response
+2025-03-28 04:49:20,227 - __main__ - INFO - Starting generate function in stream_analysis
+2025-03-28 04:49:20,227 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 04:49:20] "POST /stream_analysis HTTP/1.1" 200 -
+2025-03-28 04:49:20,228 - __main__ - WARNING - File path not provided or file doesn't exist: 
+2025-03-28 04:49:20,228 - __main__ - INFO - Sending request to Groq
+2025-03-28 04:49:20,726 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-28 04:49:20,726 - __main__ - INFO - Groq stream created, processing chunks
+2025-03-28 04:49:21,151 - __main__ - INFO - Processed 89 chunks from Groq
+2025-03-28 04:49:21,151 - __main__ - INFO - Analysis complete, yielding final message
+2025-03-28 04:49:38,190 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 04:49:38] "POST /upload HTTP/1.1" 200 -
+2025-03-28 04:49:38,200 - __main__ - INFO - Starting stream_analysis function
+2025-03-28 04:49:38,200 - __main__ - INFO - Request data: columns=9, query=How are pregnancies related to outcome?..., file_path=
+2025-03-28 04:49:38,201 - __main__ - INFO - Setting up streaming response
+2025-03-28 04:49:38,201 - __main__ - INFO - Starting generate function in stream_analysis
+2025-03-28 04:49:38,202 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 04:49:38] "POST /stream_analysis HTTP/1.1" 200 -
+2025-03-28 04:49:38,202 - __main__ - WARNING - File path not provided or file doesn't exist: 
+2025-03-28 04:49:38,202 - __main__ - INFO - Sending request to Groq
+2025-03-28 04:49:38,748 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-28 04:49:38,748 - __main__ - INFO - Groq stream created, processing chunks
+2025-03-28 04:49:39,534 - __main__ - INFO - Processed 272 chunks from Groq
+2025-03-28 04:49:39,535 - __main__ - INFO - Analysis complete, yielding final message
+2025-03-28 04:50:20,241 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 04:50:20] "POST /upload HTTP/1.1" 200 -
+2025-03-28 04:50:20,250 - __main__ - INFO - Starting stream_analysis function
+2025-03-28 04:50:20,250 - __main__ - INFO - Request data: columns=9, query=Do you have statistics for the data?..., file_path=
+2025-03-28 04:50:20,250 - __main__ - INFO - Setting up streaming response
+2025-03-28 04:50:20,251 - __main__ - INFO - Starting generate function in stream_analysis
+2025-03-28 04:50:20,251 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 04:50:20] "POST /stream_analysis HTTP/1.1" 200 -
+2025-03-28 04:50:20,252 - __main__ - WARNING - File path not provided or file doesn't exist: 
+2025-03-28 04:50:20,252 - __main__ - INFO - Sending request to Groq
+2025-03-28 04:50:20,835 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-28 04:50:20,835 - __main__ - INFO - Groq stream created, processing chunks
+2025-03-28 04:50:21,541 - __main__ - INFO - Processed 287 chunks from Groq
+2025-03-28 04:50:21,542 - __main__ - INFO - Analysis complete, yielding final message
+2025-03-28 04:53:17,872 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/frontend.py', reloading
+2025-03-28 04:53:17,873 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/frontend.py', reloading
+2025-03-28 04:53:17,876 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/frontend.py', reloading
+2025-03-28 04:53:19,870 - __main__ - INFO - Starting Flask application
+2025-03-28 04:53:19,877 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 04:53:19,877 - werkzeug - INFO -  * Debugger PIN: 906-828-338
+2025-03-28 04:53:20,522 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:53:20,523 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:53:20,525 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:53:21,756 - __main__ - INFO - Starting Flask application
+2025-03-28 04:53:21,761 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 04:53:21,761 - werkzeug - INFO -  * Debugger PIN: 500-275-865
+2025-03-28 04:53:22,947 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:53:22,955 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:53:24,759 - __main__ - INFO - Starting Flask application
+2025-03-28 04:53:24,763 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 04:53:24,764 - werkzeug - INFO -  * Debugger PIN: 931-946-411
+2025-03-28 04:53:36,990 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 04:53:36] "POST /upload HTTP/1.1" 200 -
+2025-03-28 04:53:36,998 - __main__ - INFO - Starting stream_analysis function
+2025-03-28 04:53:36,998 - __main__ - INFO - Request data: columns=9, query=Do you have access to the file now..., file_path=diabetes.csv
+2025-03-28 04:53:36,999 - __main__ - INFO - Setting up streaming response
+2025-03-28 04:53:36,999 - __main__ - INFO - Starting generate function in stream_analysis
+2025-03-28 04:53:36,999 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 04:53:36] "POST /stream_analysis HTTP/1.1" 200 -
+2025-03-28 04:53:37,000 - __main__ - WARNING - File path not provided or file doesn't exist: diabetes.csv
+2025-03-28 04:53:37,000 - __main__ - INFO - Sending request to Groq
+2025-03-28 04:53:37,547 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-28 04:53:37,548 - __main__ - INFO - Groq stream created, processing chunks
+2025-03-28 04:53:37,856 - __main__ - INFO - Processed 104 chunks from Groq
+2025-03-28 04:53:37,856 - __main__ - INFO - Analysis complete, yielding final message
+2025-03-28 04:54:54,525 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:54:54,525 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:54:54,535 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:54:56,279 - __main__ - INFO - Starting Flask application
+2025-03-28 04:54:56,284 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 04:54:56,284 - werkzeug - INFO -  * Debugger PIN: 807-901-126
+2025-03-28 04:55:01,146 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 04:55:01] "POST /upload HTTP/1.1" 200 -
+2025-03-28 04:55:01,157 - __main__ - INFO - Starting stream_analysis function
+2025-03-28 04:55:01,157 - __main__ - INFO - Request data: columns=9, query=Do you have access to the file now..., file_path=diabetes.csv
+2025-03-28 04:55:01,158 - __main__ - INFO - Setting up streaming response
+2025-03-28 04:55:01,158 - __main__ - INFO - Starting generate function in stream_analysis
+2025-03-28 04:55:01,158 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 04:55:01] "POST /stream_analysis HTTP/1.1" 200 -
+2025-03-28 04:55:01,159 - __main__ - WARNING - File path not provided or file doesn't exist: diabetes.csv
+2025-03-28 04:55:01,159 - __main__ - INFO - Sending request to Groq
+2025-03-28 04:55:01,720 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-28 04:55:01,721 - __main__ - INFO - Groq stream created, processing chunks
+2025-03-28 04:55:01,931 - __main__ - INFO - Processed 68 chunks from Groq
+2025-03-28 04:55:01,931 - __main__ - INFO - Analysis complete, yielding final message
+2025-03-28 04:55:14,018 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 04:55:14] "POST /upload HTTP/1.1" 200 -
+2025-03-28 04:55:14,027 - __main__ - INFO - Starting stream_analysis function
+2025-03-28 04:55:14,027 - __main__ - INFO - Request data: columns=9, query=How do the values of pregnancies affect diabetes..., file_path=diabetes.csv
+2025-03-28 04:55:14,027 - __main__ - INFO - Setting up streaming response
+2025-03-28 04:55:14,028 - __main__ - INFO - Starting generate function in stream_analysis
+2025-03-28 04:55:14,028 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 04:55:14] "POST /stream_analysis HTTP/1.1" 200 -
+2025-03-28 04:55:14,029 - __main__ - WARNING - File path not provided or file doesn't exist: diabetes.csv
+2025-03-28 04:55:14,029 - __main__ - INFO - Sending request to Groq
+2025-03-28 04:55:14,622 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-28 04:55:14,622 - __main__ - INFO - Groq stream created, processing chunks
+2025-03-28 04:55:15,490 - __main__ - INFO - Processed 253 chunks from Groq
+2025-03-28 04:55:15,490 - __main__ - INFO - Analysis complete, yielding final message
+2025-03-28 04:55:49,099 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:55:49,100 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:55:49,109 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:55:50,466 - __main__ - INFO - Starting Flask application
+2025-03-28 04:55:50,471 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 04:55:50,471 - werkzeug - INFO -  * Debugger PIN: 734-408-175
+2025-03-28 04:56:02,822 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 04:56:02] "POST /upload HTTP/1.1" 200 -
+2025-03-28 04:56:02,831 - __main__ - INFO - Starting stream_analysis function
+2025-03-28 04:56:02,831 - __main__ - INFO - Request data: columns=9, query=Can you access the values of the csv file uploaded..., file_path=/home/warren/Documents/Github/CS3264/diabetes.csv
+2025-03-28 04:56:02,831 - __main__ - INFO - Setting up streaming response
+2025-03-28 04:56:02,832 - __main__ - INFO - Starting generate function in stream_analysis
+2025-03-28 04:56:02,832 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 04:56:02] "POST /stream_analysis HTTP/1.1" 200 -
+2025-03-28 04:56:02,833 - __main__ - WARNING - File path not provided or file doesn't exist: /home/warren/Documents/Github/CS3264/diabetes.csv
+2025-03-28 04:56:02,833 - __main__ - INFO - Sending request to Groq
+2025-03-28 04:56:03,468 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-28 04:56:03,468 - __main__ - INFO - Groq stream created, processing chunks
+2025-03-28 04:56:03,889 - __main__ - INFO - Processed 142 chunks from Groq
+2025-03-28 04:56:03,889 - __main__ - INFO - Analysis complete, yielding final message
+2025-03-28 04:56:33,562 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:56:33,562 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:56:33,564 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:56:34,594 - __main__ - INFO - Starting Flask application
+2025-03-28 04:56:34,600 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 04:56:34,600 - werkzeug - INFO -  * Debugger PIN: 145-554-907
+2025-03-28 04:56:50,045 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 04:56:50] "POST /upload HTTP/1.1" 200 -
+2025-03-28 04:56:50,054 - __main__ - INFO - Starting stream_analysis function
+2025-03-28 04:56:50,054 - __main__ - INFO - Request data: columns=9, query=Can you access the data and features?..., file_path=/home/warren/Documents/Github/CS3264/datasets/diabetes.csv
+2025-03-28 04:56:50,055 - __main__ - INFO - Setting up streaming response
+2025-03-28 04:56:50,055 - __main__ - INFO - Starting generate function in stream_analysis
+2025-03-28 04:56:50,055 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 04:56:50] "POST /stream_analysis HTTP/1.1" 200 -
+2025-03-28 04:56:50,056 - __main__ - INFO - File exists, getting data from: /home/warren/Documents/Github/CS3264/datasets/diabetes.csv
+2025-03-28 04:56:50,080 - __main__ - ERROR - Error getting data: Failed to get data: Object of type int64 is not JSON serializable
+Traceback (most recent call last):
+  File "/home/warren/Documents/Github/CS3264/backend.py", line 182, in generate
+    stats_info = f"Here are some statistics about the dataset: {json.dumps(stats)}"
+                                                                ^^^^^^^^^^^^^^^^^
+  File "/home/warren/.local/share/uv/python/cpython-3.11.11-linux-x86_64-gnu/lib/python3.11/json/__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/warren/.local/share/uv/python/cpython-3.11.11-linux-x86_64-gnu/lib/python3.11/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/warren/.local/share/uv/python/cpython-3.11.11-linux-x86_64-gnu/lib/python3.11/json/encoder.py", line 258, in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+  File "/home/warren/.local/share/uv/python/cpython-3.11.11-linux-x86_64-gnu/lib/python3.11/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+2025-03-28 04:56:50,084 - __main__ - INFO - Sending request to Groq
+2025-03-28 04:56:50,880 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-28 04:56:50,880 - __main__ - INFO - Groq stream created, processing chunks
+2025-03-28 04:56:50,992 - __main__ - INFO - Processed 92 chunks from Groq
+2025-03-28 04:56:50,992 - __main__ - INFO - Analysis complete, yielding final message
+2025-03-28 04:58:03,892 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:58:03,892 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:58:03,902 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:58:05,007 - __main__ - INFO - Starting Flask application
+2025-03-28 04:58:05,011 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 04:58:05,012 - werkzeug - INFO -  * Debugger PIN: 889-903-147
+2025-03-28 04:58:06,075 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:58:06,086 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:58:06,903 - __main__ - INFO - Starting Flask application
+2025-03-28 04:58:06,908 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 04:58:06,909 - werkzeug - INFO -  * Debugger PIN: 274-303-046
+2025-03-28 04:58:20,239 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:58:20,240 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:58:20,254 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:58:21,898 - __main__ - INFO - Starting Flask application
+2025-03-28 04:58:21,903 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 04:58:21,903 - werkzeug - INFO -  * Debugger PIN: 630-682-149
+2025-03-28 04:58:50,724 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:58:50,725 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:58:50,735 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 04:58:51,973 - __main__ - INFO - Starting Flask application
+2025-03-28 04:58:51,978 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 04:58:51,978 - werkzeug - INFO -  * Debugger PIN: 138-791-399
+2025-03-28 04:59:15,425 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 04:59:15] "POST /upload HTTP/1.1" 200 -
+2025-03-28 04:59:15,433 - __main__ - INFO - Starting stream_analysis function
+2025-03-28 04:59:15,434 - __main__ - INFO - Request data: columns=9, query=Can you see the features..., file_path=/home/warren/Documents/Github/CS3264/datasets/diabetes.csv
+2025-03-28 04:59:15,434 - __main__ - INFO - Setting up streaming response
+2025-03-28 04:59:15,434 - __main__ - INFO - Starting generate function in stream_analysis
+2025-03-28 04:59:15,434 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 04:59:15] "POST /stream_analysis HTTP/1.1" 200 -
+2025-03-28 04:59:15,435 - __main__ - INFO - File exists, getting data from: /home/warren/Documents/Github/CS3264/datasets/diabetes.csv
+2025-03-28 04:59:15,460 - __main__ - ERROR - Error getting data: Failed to get data: string indices must be integers, not 'str'
+Traceback (most recent call last):
+  File "/home/warren/Documents/Github/CS3264/backend.py", line 207, in generate
+    sample_data_info = f"Here is a sample of the data (up to 100 rows): {json.dumps(sample_data['sample_data'])}"
+                                                                                    ~~~~~~~~~~~^^^^^^^^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+2025-03-28 04:59:15,461 - __main__ - INFO - Sending request to Groq
+2025-03-28 04:59:15,981 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-28 04:59:15,981 - __main__ - INFO - Groq stream created, processing chunks
+2025-03-28 04:59:16,290 - __main__ - INFO - Processed 63 chunks from Groq
+2025-03-28 04:59:16,290 - __main__ - INFO - Analysis complete, yielding final message
+2025-03-28 05:00:02,116 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:00:02,117 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:00:02,133 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:00:03,264 - __main__ - INFO - Starting Flask application
+2025-03-28 05:00:03,269 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 05:00:03,269 - werkzeug - INFO -  * Debugger PIN: 137-609-228
+2025-03-28 05:00:19,417 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:00:19,417 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:00:19,418 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:00:20,236 - __main__ - INFO - Starting Flask application
+2025-03-28 05:00:20,241 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 05:00:20,242 - werkzeug - INFO -  * Debugger PIN: 143-675-012
+2025-03-28 05:00:48,454 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:00:48,454 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:00:48,465 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:00:49,289 - __main__ - INFO - Starting Flask application
+2025-03-28 05:00:49,293 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 05:00:49,294 - werkzeug - INFO -  * Debugger PIN: 788-265-841
+2025-03-28 05:00:55,450 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 05:00:55] "POST /upload HTTP/1.1" 200 -
+2025-03-28 05:00:55,458 - __main__ - INFO - Starting stream_analysis function
+2025-03-28 05:00:55,459 - __main__ - INFO - Request data: columns=9, query=Can you access the features..., file_path=/home/warren/Documents/Github/CS3264/datasets/diabetes.csv
+2025-03-28 05:00:55,459 - __main__ - INFO - Setting up streaming response
+2025-03-28 05:00:55,459 - __main__ - INFO - Starting generate function in stream_analysis
+2025-03-28 05:00:55,459 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 05:00:55] "POST /stream_analysis HTTP/1.1" 200 -
+2025-03-28 05:00:55,460 - __main__ - INFO - File exists, getting data from: /home/warren/Documents/Github/CS3264/datasets/diabetes.csv
+2025-03-28 05:00:55,476 - __main__ - INFO - Sending request to Groq
+2025-03-28 05:00:56,235 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-28 05:00:56,236 - __main__ - INFO - Groq stream created, processing chunks
+2025-03-28 05:00:56,953 - __main__ - INFO - Processed 82 chunks from Groq
+2025-03-28 05:00:56,953 - __main__ - INFO - Analysis complete, yielding final message
+2025-03-28 05:01:20,400 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 05:01:20] "POST /upload HTTP/1.1" 200 -
+2025-03-28 05:01:20,412 - __main__ - INFO - Starting stream_analysis function
+2025-03-28 05:01:20,412 - __main__ - INFO - Request data: columns=9, query=How are the values of pregnancy related to diabete..., file_path=/home/warren/Documents/Github/CS3264/datasets/diabetes.csv
+2025-03-28 05:01:20,412 - __main__ - INFO - Setting up streaming response
+2025-03-28 05:01:20,412 - __main__ - INFO - Starting generate function in stream_analysis
+2025-03-28 05:01:20,413 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 05:01:20] "POST /stream_analysis HTTP/1.1" 200 -
+2025-03-28 05:01:20,413 - __main__ - INFO - File exists, getting data from: /home/warren/Documents/Github/CS3264/datasets/diabetes.csv
+2025-03-28 05:01:20,429 - __main__ - INFO - Sending request to Groq
+2025-03-28 05:01:21,118 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-28 05:01:21,118 - __main__ - INFO - Groq stream created, processing chunks
+2025-03-28 05:01:22,247 - __main__ - INFO - Processed 257 chunks from Groq
+2025-03-28 05:01:22,247 - __main__ - INFO - Analysis complete, yielding final message
+2025-03-28 05:05:34,796 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:05:34,796 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:05:34,806 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:05:35,810 - __main__ - INFO - Starting Flask application
+2025-03-28 05:05:35,814 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 05:05:35,815 - werkzeug - INFO -  * Debugger PIN: 131-093-037
+2025-03-28 05:06:09,609 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:06:09,610 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:06:09,618 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:06:10,935 - __main__ - INFO - Starting Flask application
+2025-03-28 05:06:10,940 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 05:06:10,940 - werkzeug - INFO -  * Debugger PIN: 165-437-433
+2025-03-28 05:06:27,134 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:06:27,134 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:06:27,144 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:06:28,922 - __main__ - INFO - Starting Flask application
+2025-03-28 05:06:28,927 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 05:06:28,928 - werkzeug - INFO -  * Debugger PIN: 115-565-739
+2025-03-28 05:06:59,702 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:06:59,702 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:06:59,721 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:07:01,021 - __main__ - INFO - Starting Flask application
+2025-03-28 05:07:01,026 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 05:07:01,026 - werkzeug - INFO -  * Debugger PIN: 977-695-831
+2025-03-28 05:07:19,711 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:07:19,721 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:07:21,080 - __main__ - INFO - Starting Flask application
+2025-03-28 05:07:21,085 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 05:07:21,086 - werkzeug - INFO -  * Debugger PIN: 101-015-831
+2025-03-28 05:08:06,912 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:08:06,912 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:08:06,923 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:08:08,261 - __main__ - INFO - Starting Flask application
+2025-03-28 05:08:08,265 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 05:08:08,266 - werkzeug - INFO -  * Debugger PIN: 104-314-893
+2025-03-28 05:08:10,036 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:08:10,036 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:08:10,053 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:08:11,149 - __main__ - INFO - Starting Flask application
+2025-03-28 05:08:11,154 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 05:08:11,155 - werkzeug - INFO -  * Debugger PIN: 553-676-984
+2025-03-28 05:08:38,860 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:08:38,860 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:08:38,861 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:08:40,224 - __main__ - INFO - Starting Flask application
+2025-03-28 05:08:40,229 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 05:08:40,229 - werkzeug - INFO -  * Debugger PIN: 305-149-502
+2025-03-28 05:08:52,423 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:08:52,424 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:08:52,442 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:08:54,216 - __main__ - INFO - Starting Flask application
+2025-03-28 05:08:54,221 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 05:08:54,221 - werkzeug - INFO -  * Debugger PIN: 140-138-728
+2025-03-28 05:09:17,421 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 05:09:17] "POST /upload HTTP/1.1" 200 -
+2025-03-28 05:09:17,430 - __main__ - INFO - Starting stream_analysis function
+2025-03-28 05:09:17,430 - __main__ - INFO - Request data: columns=9, query=Can you tell me more about how each feature affect..., file_path=/home/warren/Documents/Github/CS3264/datasets/diabetes.csv
+2025-03-28 05:09:17,430 - __main__ - INFO - Setting up streaming response
+2025-03-28 05:09:17,431 - __main__ - INFO - Starting generate function in stream_analysis
+2025-03-28 05:09:17,431 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 05:09:17] "POST /stream_analysis HTTP/1.1" 200 -
+2025-03-28 05:09:17,432 - __main__ - INFO - File exists, getting data from: /home/warren/Documents/Github/CS3264/datasets/diabetes.csv
+2025-03-28 05:09:17,447 - __main__ - INFO - Sending request to Groq
+2025-03-28 05:09:17,995 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2025-03-28 05:09:17,996 - __main__ - ERROR - Error in Groq request: Error code: 400 - {'error': {'message': "'messages.1' : value must be an object with the discriminator property: 'role'", 'type': 'invalid_request_error'}}
+Traceback (most recent call last):
+  File "/home/warren/Documents/Github/CS3264/backend.py", line 268, in generate
+    stream = groq_client.chat.completions.create(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/warren/Documents/Github/CS3264/.venv/lib/python3.11/site-packages/groq/resources/chat/completions.py", line 322, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/home/warren/Documents/Github/CS3264/.venv/lib/python3.11/site-packages/groq/_base_client.py", line 1225, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/warren/Documents/Github/CS3264/.venv/lib/python3.11/site-packages/groq/_base_client.py", line 917, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File "/home/warren/Documents/Github/CS3264/.venv/lib/python3.11/site-packages/groq/_base_client.py", line 1020, in _request
+    raise self._make_status_error_from_response(err.response) from None
+groq.BadRequestError: Error code: 400 - {'error': {'message': "'messages.1' : value must be an object with the discriminator property: 'role'", 'type': 'invalid_request_error'}}
+2025-03-28 05:09:42,835 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:09:42,845 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:09:44,401 - __main__ - INFO - Starting Flask application
+2025-03-28 05:09:44,406 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 05:09:44,406 - werkzeug - INFO -  * Debugger PIN: 233-404-959
+2025-03-28 05:09:52,121 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 05:09:52] "POST /upload HTTP/1.1" 200 -
+2025-03-28 05:09:52,131 - __main__ - INFO - Starting stream_analysis function
+2025-03-28 05:09:52,132 - __main__ - INFO - Request data: columns=9, query=Can you tell me more about how each feature affect..., file_path=/home/warren/Documents/Github/CS3264/datasets/diabetes.csv
+2025-03-28 05:09:52,132 - __main__ - INFO - Setting up streaming response
+2025-03-28 05:09:52,132 - __main__ - INFO - Starting generate function in stream_analysis
+2025-03-28 05:09:52,133 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 05:09:52] "POST /stream_analysis HTTP/1.1" 200 -
+2025-03-28 05:09:52,133 - __main__ - INFO - File exists, getting data from: /home/warren/Documents/Github/CS3264/datasets/diabetes.csv
+2025-03-28 05:09:52,151 - __main__ - INFO - Sending request to Groq
+2025-03-28 05:09:52,505 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-28 05:09:52,505 - __main__ - INFO - Groq stream created, processing chunks
+2025-03-28 05:09:54,276 - __main__ - INFO - Processed 463 chunks from Groq
+2025-03-28 05:09:54,276 - __main__ - INFO - Analysis complete, yielding final message
+2025-03-28 05:10:09,571 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 05:10:09] "POST /upload HTTP/1.1" 200 -
+2025-03-28 05:10:09,579 - __main__ - INFO - Starting stream_analysis function
+2025-03-28 05:10:09,580 - __main__ - INFO - Request data: columns=9, query=What are some usual ages..., file_path=/home/warren/Documents/Github/CS3264/datasets/diabetes.csv
+2025-03-28 05:10:09,580 - __main__ - INFO - Setting up streaming response
+2025-03-28 05:10:09,580 - __main__ - INFO - Starting generate function in stream_analysis
+2025-03-28 05:10:09,580 - werkzeug - INFO - 127.0.0.1 - - [28/Mar/2025 05:10:09] "POST /stream_analysis HTTP/1.1" 200 -
+2025-03-28 05:10:09,581 - __main__ - INFO - File exists, getting data from: /home/warren/Documents/Github/CS3264/datasets/diabetes.csv
+2025-03-28 05:10:09,598 - __main__ - INFO - Sending request to Groq
+2025-03-28 05:10:10,018 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-03-28 05:10:10,018 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 26.000000 seconds
+2025-03-28 05:10:36,844 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2025-03-28 05:10:36,844 - __main__ - ERROR - Error in Groq request: Error code: 400 - {'error': {'message': 'Please reduce the length of the messages or completion.', 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+Traceback (most recent call last):
+  File "/home/warren/Documents/Github/CS3264/backend.py", line 268, in generate
+    stream = groq_client.chat.completions.create(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/warren/Documents/Github/CS3264/.venv/lib/python3.11/site-packages/groq/resources/chat/completions.py", line 322, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/home/warren/Documents/Github/CS3264/.venv/lib/python3.11/site-packages/groq/_base_client.py", line 1225, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/warren/Documents/Github/CS3264/.venv/lib/python3.11/site-packages/groq/_base_client.py", line 917, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File "/home/warren/Documents/Github/CS3264/.venv/lib/python3.11/site-packages/groq/_base_client.py", line 1005, in _request
+    return self._retry_request(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/warren/Documents/Github/CS3264/.venv/lib/python3.11/site-packages/groq/_base_client.py", line 1054, in _retry_request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File "/home/warren/Documents/Github/CS3264/.venv/lib/python3.11/site-packages/groq/_base_client.py", line 1020, in _request
+    raise self._make_status_error_from_response(err.response) from None
+groq.BadRequestError: Error code: 400 - {'error': {'message': 'Please reduce the length of the messages or completion.', 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+2025-03-28 05:12:55,865 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:12:55,865 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:12:55,876 - werkzeug - INFO -  * Detected change in '/home/warren/Documents/Github/CS3264/backend.py', reloading
+2025-03-28 05:12:57,402 - __main__ - INFO - Starting Flask application
+2025-03-28 05:12:57,412 - werkzeug - WARNING -  * Debugger is active!
+2025-03-28 05:12:57,412 - werkzeug - INFO -  * Debugger PIN: 569-437-296
