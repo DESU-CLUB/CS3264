@@ -419,3 +419,19 @@ AttributeError: 'ChatHistory' object has no attribute 'add_message'. Did you mea
 2025-03-30 19:03:27,113 - werkzeug - INFO -  * Detected change in 'C:\\Users\\somne\\Documents\\DIE\\Y2S2\\CS3264\\Project\\CS3264\\backend.py', reloading
 2025-03-30 19:03:27,118 - werkzeug - INFO -  * Detected change in 'C:\\Users\\somne\\Documents\\DIE\\Y2S2\\CS3264\\Project\\CS3264\\backend.py', reloading
 2025-03-30 19:03:28,346 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-30 19:03:29,553 - __main__ - INFO - Starting Flask application
+2025-03-30 19:03:29,568 - werkzeug - WARNING -  * Debugger is active!
+2025-03-30 19:03:29,568 - werkzeug - INFO -  * Debugger PIN: 192-557-283
+2025-03-30 19:03:48,766 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 19:03:48] "POST /upload HTTP/1.1" 200 -
+2025-03-30 19:04:10,437 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 19:04:10] "POST /upload HTTP/1.1" 200 -
+2025-03-30 19:04:12,491 - __main__ - INFO - Starting stream_analysis function
+2025-03-30 19:04:12,493 - __main__ - INFO - Request data: columns=8, query=give me an analysis of the data..., file_path=C:\Users\somne\Documents\DIE\Y2S2\CS3264\Project\CS3264\datasets\mag7.csv
+2025-03-30 19:04:12,494 - __main__ - INFO - Setting up streaming response
+2025-03-30 19:04:12,498 - __main__ - INFO - Starting generate function in stream_analysis
+2025-03-30 19:04:12,498 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 19:04:12] "POST /stream_analysis HTTP/1.1" 200 -
+2025-03-30 19:04:12,499 - __main__ - WARNING - File path not provided or file doesn't exist: C:\Users\somne\Documents\DIE\Y2S2\CS3264\Project\CS3264\datasets\mag7.csv
+2025-03-30 19:04:12,514 - __main__ - INFO - Sending request to Groq
+2025-03-30 19:04:12,951 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-30 19:04:12,951 - __main__ - INFO - Groq stream created, processing chunks
+2025-03-30 19:04:14,237 - __main__ - INFO - Processed 370 chunks from Groq
+2025-03-30 19:04:14,237 - __main__ - INFO - Analysis complete, yielding final message
