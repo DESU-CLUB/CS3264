@@ -374,6 +374,10 @@ def stream_analysis():
                 yield json.dumps({"type": "error", "message": error_message}) + "\n"
         
         logger.info("Setting up streaming response")
+
+        # debug: figure out the format of the table
+        logger.info(generate()) # this returns a generator object. How do i access the json format? (problem 1)
+
         return Response(stream_with_context(generate()), mimetype='text/event-stream')
         
     except Exception as e:
