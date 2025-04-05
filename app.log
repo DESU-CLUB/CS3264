@@ -393,3 +393,45 @@ groq.BadRequestError: Error code: 400 - {'error': {'message': 'Please reduce the
 2025-03-28 05:12:57,402 - __main__ - INFO - Starting Flask application
 2025-03-28 05:12:57,412 - werkzeug - WARNING -  * Debugger is active!
 2025-03-28 05:12:57,412 - werkzeug - INFO -  * Debugger PIN: 569-437-296
+2025-03-30 19:01:07,486 - __main__ - INFO - Starting Flask application
+2025-03-30 19:01:07,531 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-30 19:01:07,533 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-30 19:01:07,543 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-30 19:01:08,626 - __main__ - INFO - Starting Flask application
+2025-03-30 19:01:08,637 - werkzeug - WARNING -  * Debugger is active!
+2025-03-30 19:01:08,639 - werkzeug - INFO -  * Debugger PIN: 192-557-283
+2025-03-30 19:01:26,620 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 19:01:26] "POST /upload HTTP/1.1" 200 -
+2025-03-30 19:01:48,184 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 19:01:48] "POST /upload HTTP/1.1" 200 -
+2025-03-30 19:01:50,237 - __main__ - INFO - Starting stream_analysis function
+2025-03-30 19:01:50,238 - __main__ - INFO - Request data: columns=8, query=give me an analysis of the data..., file_path=C:\Users\somne\Documents\DIE\Y2S2\CS3264\Project\CS3264\datasets\mag7.csv
+2025-03-30 19:01:50,238 - __main__ - INFO - Setting up streaming response
+2025-03-30 19:01:50,238 - __main__ - INFO - Starting generate function in stream_analysis
+2025-03-30 19:01:50,238 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 19:01:50] "POST /stream_analysis HTTP/1.1" 200 -
+2025-03-30 19:01:50,241 - __main__ - WARNING - File path not provided or file doesn't exist: C:\Users\somne\Documents\DIE\Y2S2\CS3264\Project\CS3264\datasets\mag7.csv
+2025-03-30 19:01:50,250 - __main__ - INFO - Sending request to Groq
+2025-03-30 19:01:50,251 - __main__ - ERROR - Error in Groq request: 'ChatHistory' object has no attribute 'add_message'
+Traceback (most recent call last):
+  File "C:\Users\somne\Documents\DIE\Y2S2\CS3264\Project\CS3264\backend.py", line 291, in generate
+    chat_history.add_message({"role": "user", "content": prompt})
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ChatHistory' object has no attribute 'add_message'. Did you mean: 'add_user_message'?
+2025-03-30 19:03:27,113 - werkzeug - INFO -  * Detected change in 'C:\\Users\\somne\\Documents\\DIE\\Y2S2\\CS3264\\Project\\CS3264\\backend.py', reloading
+2025-03-30 19:03:27,118 - werkzeug - INFO -  * Detected change in 'C:\\Users\\somne\\Documents\\DIE\\Y2S2\\CS3264\\Project\\CS3264\\backend.py', reloading
+2025-03-30 19:03:28,346 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-30 19:03:29,553 - __main__ - INFO - Starting Flask application
+2025-03-30 19:03:29,568 - werkzeug - WARNING -  * Debugger is active!
+2025-03-30 19:03:29,568 - werkzeug - INFO -  * Debugger PIN: 192-557-283
+2025-03-30 19:03:48,766 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 19:03:48] "POST /upload HTTP/1.1" 200 -
+2025-03-30 19:04:10,437 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 19:04:10] "POST /upload HTTP/1.1" 200 -
+2025-03-30 19:04:12,491 - __main__ - INFO - Starting stream_analysis function
+2025-03-30 19:04:12,493 - __main__ - INFO - Request data: columns=8, query=give me an analysis of the data..., file_path=C:\Users\somne\Documents\DIE\Y2S2\CS3264\Project\CS3264\datasets\mag7.csv
+2025-03-30 19:04:12,494 - __main__ - INFO - Setting up streaming response
+2025-03-30 19:04:12,498 - __main__ - INFO - Starting generate function in stream_analysis
+2025-03-30 19:04:12,498 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 19:04:12] "POST /stream_analysis HTTP/1.1" 200 -
+2025-03-30 19:04:12,499 - __main__ - WARNING - File path not provided or file doesn't exist: C:\Users\somne\Documents\DIE\Y2S2\CS3264\Project\CS3264\datasets\mag7.csv
+2025-03-30 19:04:12,514 - __main__ - INFO - Sending request to Groq
+2025-03-30 19:04:12,951 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-30 19:04:12,951 - __main__ - INFO - Groq stream created, processing chunks
+2025-03-30 19:04:14,237 - __main__ - INFO - Processed 370 chunks from Groq
+2025-03-30 19:04:14,237 - __main__ - INFO - Analysis complete, yielding final message
