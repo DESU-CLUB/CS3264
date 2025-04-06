@@ -1,12 +1,16 @@
 import flask
 from flask import request, jsonify, Response, stream_with_context
-import pandas as pd #Use this if you have no GPU
+import pandas as pd
 from dotenv import load_dotenv
 import time
 import json
 import os
 import tempfile
 import logging
+import threading
+import shutil
+from rag import build_persisted_index, load_persisted_index, query_index
+from generate_data import generate_data
 
 # Configure logging
 logging.basicConfig(
@@ -19,73 +23,179 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-
-class ChatHistory():
+class DataGenerationStatus:
     def __init__(self):
-        self.history = [{"role": "system", "content": "You analyze CSV features and answer questions about them. You have access to the current dataset:"},
-]
-        self.system = {"role": "system", "content": "You analyze CSV features and answer questions about them. You have access to the current dataset:"},
+        self.is_generating = False
+        self.progress = 0
+        self.total_rows = 0
+        self.generated_data = None
+        self.error = None
+        self.current_file = None
 
+    def reset(self):
+        self.is_generating = False
+        self.progress = 0
+        self.total_rows = 0
+        self.generated_data = None
+        self.error = None
+        # Keep the current file reference
 
-    def add_user_message(self, message):
-        self.history.append(message)
-        #Have groq summarize the conversation in 1 message
-        # If history is getting long, have Groq summarize
-        if len(self.history) > 8:
-            try:
-                # Create summarization prompt
-                summary_prompt = {
-                    "role": "user", 
-                    "content": "Please summarize our conversation so far in one concise message that captures the key points and context. Focus on the data analysis aspects."
-                }
-                
-                # Get summary from Groq
-                summary_response = groq_client.chat.completions.create(
-                    model="llama3-70b-8192",
-                    messages=[self.system, summary_prompt],
-                    max_tokens=200
-                )
-                
-                # Replace history with system message + summary + last 2 messages
-                summary_msg = {"role": "assistant", "content": summary_response.choices[0].message.content}
-                self.history = [self.system, summary_msg] + self.history[-2:]
-                
-            except Exception as e:
-                logger.error(f"Error summarizing chat history: {str(e)}")
-                # On error, just truncate to last few messages
-                self.history = [self.system] + self.history[-4:]
-        if len(self.history) > 10:
-            self.history = self.history[0] + self.history[2:]
+    def start_generation(self, total_rows, file_path):
+        self.reset()
+        self.is_generating = True
+        self.total_rows = total_rows
+        self.current_file = file_path
 
-    def get_history(self):
-        return self.history
-    
+    def update_progress(self, current_row):
+        self.progress = (current_row / self.total_rows) * 100
 
+    def complete_generation(self, data):
+        self.is_generating = False
+        self.progress = 100
+        self.generated_data = data
+
+    def set_error(self, error):
+        self.is_generating = False
+        self.error = str(error)
 
 # Load environment variables from .env file
 load_dotenv()
 
-# Add Groq integration
-from groq import Groq  # You'll need to pip install groq
-
 app = flask.Flask(__name__)
 
-# Initialize Groq client - you'll need an API key
-# Set this with: export GROQ_API_KEY=your_api_key
-groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+# Initialize global objects
+data_status = DataGenerationStatus()
+query_engine = None
+
+def create_features_dir():
+    """Create features directory for feature documents"""
+    features_dir = "./data/features/"
+    os.makedirs(features_dir, exist_ok=True)
+    return features_dir
+
+def prepare_feature_documents(df, features_dir):
+    """
+    Prepare feature documents for LlamaIndex ingestion
+    Each feature gets its own text file with descriptions
+    """
+    logger.info(f"Preparing feature documents in {features_dir}")
+    
+    # Get column information
+    columns = df.columns.tolist()
+    
+    # Clear existing feature documents
+    for file in os.listdir(features_dir):
+        if file.endswith(".txt"):
+            os.remove(os.path.join(features_dir, file))
+    
+    # Generate a document for each feature
+    for column in columns:
+        file_path = os.path.join(features_dir, f"{column}.txt")
+        
+        # Get column statistics
+        if pd.api.types.is_numeric_dtype(df[column]):
+            stats = {
+                "min": float(df[column].min()),
+                "max": float(df[column].max()),
+                "mean": float(df[column].mean()),
+                "median": float(df[column].median()),
+                "std": float(df[column].std())
+            }
+            
+            # Write stats to file
+            with open(file_path, "w") as f:
+                f.write(f"# Feature: {column}\n\n")
+                f.write("## Type: Numeric\n\n")
+                f.write("## Description\n")
+                f.write(f"This is a numeric feature in the dataset.\n\n")
+                f.write("## Statistics\n")
+                f.write(f"- Minimum value: {stats['min']}\n")
+                f.write(f"- Maximum value: {stats['max']}\n")
+                f.write(f"- Mean: {stats['mean']}\n")
+                f.write(f"- Median: {stats['median']}\n")
+                f.write(f"- Standard deviation: {stats['std']}\n\n")
+                
+                # Add correlation information
+                f.write("## Correlations with other features\n")
+                for other_col in columns:
+                    if other_col != column and pd.api.types.is_numeric_dtype(df[other_col]):
+                        corr = df[column].corr(df[other_col])
+                        f.write(f"- Correlation with {other_col}: {corr:.4f}\n")
+        
+        else:
+            # For categorical columns
+            value_counts = df[column].value_counts()
+            unique_count = len(value_counts)
+            top_values = value_counts.head(10)
+            
+            with open(file_path, "w") as f:
+                f.write(f"# Feature: {column}\n\n")
+                f.write("## Type: Categorical\n\n")
+                f.write("## Description\n")
+                f.write(f"This is a categorical feature in the dataset.\n\n")
+                f.write("## Statistics\n")
+                f.write(f"- Unique values: {unique_count}\n")
+                f.write(f"- Missing values: {df[column].isna().sum()}\n\n")
+                f.write("## Most common values\n")
+                
+                for val, count in top_values.items():
+                    percentage = (count / len(df)) * 100
+                    f.write(f"- {val}: {count} occurrences ({percentage:.2f}%)\n")
+    
+    logger.info(f"Created {len(columns)} feature documents")
+
+def cleanup_previous_data():
+    """Clean up previous data and RAG indices"""
+    try:
+        # Clear the persist directory
+        persist_dir = "./data/chroma_db"
+        if os.path.exists(persist_dir):
+            shutil.rmtree(persist_dir)
+        
+        # Clear any generated data
+        generated_dir = "./data/generated"
+        if os.path.exists(generated_dir):
+            shutil.rmtree(generated_dir)
+            
+        # Recreate directories
+        os.makedirs(persist_dir, exist_ok=True)
+        os.makedirs(generated_dir, exist_ok=True)
+        
+        logger.info("Cleaned up previous data")
+    except Exception as e:
+        logger.error(f"Error cleaning up data: {str(e)}")
+
+def generate_data_background(file_path, n_samples=1000):
+    """Background task for data generation"""
+    try:
+        global data_status
+        data_status.start_generation(n_samples, file_path)
+        
+        # Add progress callback
+        def progress_callback(current_row):
+            data_status.update_progress(current_row)
+        
+        # Generate the data
+        generated_df = generate_data(
+            csv_path=file_path,
+            n_samples=n_samples,
+            persist_dir="./data/chroma_db",
+            features_dir="./data/features/",
+            collection_name="dquery",
+            output_path="./data/generated/generated_data.csv",
+            max_workers=5,
+            batch_size=100
+        )
+        
+        data_status.complete_generation(generated_df)
+        logger.info(f"Generated {n_samples} rows of data successfully")
+        
+    except Exception as e:
+        logger.error(f"Error in data generation: {str(e)}")
+        data_status.set_error(e)
 
 def describe_csv(file_path=None, dataframe=None):
-    """
-    Generate statistical descriptions of a CSV file.
-    Returns median, min, max, and interquartile ranges for each numeric column.
-    
-    Args:
-        file_path: Path to CSV file
-        dataframe: Pandas DataFrame (alternative to file_path)
-    
-    Returns:
-        Dictionary with statistical descriptions
-    """
+    """Generate statistical descriptions of a CSV file"""
     try:
         if dataframe is not None:
             df = dataframe
@@ -133,53 +243,10 @@ def describe_csv(file_path=None, dataframe=None):
     except Exception as e:
         return {"error": str(e)}
 
-def get_csv_sample(file_path, sample_size=100):
-    """
-    Read a sample of rows from a CSV file.
-    
-    Args:
-        file_path: Path to CSV file
-        sample_size: Number of rows to sample
-        
-    Returns:
-        Dictionary with sample data and column info
-    """
-    try:
-        # Read the CSV file
-        df = pd.read_csv(file_path)
-        
-        # Get a sample of rows
-        if len(df) > sample_size:
-            sample_df = df.sample(sample_size)
-        else:
-            sample_df = df
-            
-        # Convert to formatted string representation
-        # Convert sample to string table format
-        table_rows = []
-        
-        # Add header row
-        header = "|" + "|".join(f" {col} " for col in sample_df.columns) + "|"
-        separator = "|" + "|".join("-" * (len(col) + 2) for col in sample_df.columns) + "|"
-        
-        table_rows.append(header)
-        table_rows.append(separator)
-        
-        # Add data rows
-        for _, row in sample_df.iterrows():
-            row_str = "|" + "|".join(f" {str(val)} " for val in row) + "|"
-            table_rows.append(row_str)
-            
-        table_str = "\n".join(table_rows)
-
-        return table_str 
-       
-    except Exception as e:
-        logger.error(f"Error getting CSV sample: {str(e)}")
-        return "Error"
-
 @app.route('/upload', methods=['POST'])
 def upload_file():
+    global query_engine
+    
     if 'file' not in request.files:
         return jsonify({'error': 'No file part'}), 400
     
@@ -189,191 +256,110 @@ def upload_file():
         return jsonify({'error': 'No file selected'}), 400
     
     if file and file.filename.endswith('.csv'):
-        # Read the CSV using cudf
         try:
-            df = pd.read_csv(file)
-            # Return basic info about the dataframe
+            # Save the file temporarily
+            temp_dir = "./datasets"
+            os.makedirs(temp_dir, exist_ok=True)
+            file_path = os.path.join(temp_dir, file.filename)
+            file.save(file_path)
+            
+            # Clean up previous data
+            cleanup_previous_data()
+            
+            # Read basic info about the file
+            df = pd.read_csv(file_path)
+            
+            # Create features directory and prepare feature documents
+            features_dir = create_features_dir()
+            prepare_feature_documents(df, features_dir)
+            
+            # Build RAG index
+            logger.info("Building RAG index...")
+            query_engine = build_persisted_index(
+                features_dir="./data/features/",
+                persist_dir="./data/chroma_db",
+                collection_name="dquery"
+            )
+            
+            # Start data generation in background
+            thread = threading.Thread(
+                target=generate_data_background,
+                args=(file_path,),
+                kwargs={'n_samples': 1000}
+            )
+            thread.start()
+            
             return jsonify({
                 'success': True,
                 'rows': len(df),
-                'columns': df.columns.tolist()
+                'columns': df.columns.tolist(),
+                'message': 'File uploaded and processing started'
             })
+            
         except Exception as e:
+            logger.error(f"Error processing upload: {str(e)}")
             return jsonify({'error': str(e)}), 500
     else:
         return jsonify({'error': 'File must be a CSV'}), 400
 
+@app.route('/generation_status', methods=['GET'])
+def get_generation_status():
+    """Endpoint to check data generation status"""
+    return jsonify({
+        'is_generating': data_status.is_generating,
+        'progress': data_status.progress,
+        'total_rows': data_status.total_rows,
+        'current_file': os.path.basename(data_status.current_file) if data_status.current_file else None,
+        'error': data_status.error
+    })
 
 @app.route('/stream_analysis', methods=['POST'])
 def stream_analysis():
+    global query_engine
+    
     try:
         logger.info("Starting stream_analysis function")
-        # Get request data
         data = request.json
-        column_names = data.get('columns', [])
         user_query = data.get('query', '')
-        file_path = data.get('file_path', '')
-        file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),'datasets', file_path)
         
-        logger.info(f"Request data: columns={len(column_names)}, query={user_query[:50]}..., file_path={file_path}")
+        if not user_query:
+            return jsonify({'error': 'Missing query'}), 400
         
-        if not column_names or not user_query:
-            logger.error("Missing columns or query in request")
-            return jsonify({'error': 'Missing columns or query'}), 400
+        if not query_engine:
+            return jsonify({'error': 'No data loaded. Please upload a CSV file first.'}), 400
         
         def generate():
             try:
-                logger.info("Starting generate function in stream_analysis")
                 # Initial message
-                initial_message = json.dumps({"type": "info", "message": "Starting analysis..."}) + "\n"
-                logger.debug(f"Yielding initial message: {initial_message}")
-                yield initial_message
+                yield json.dumps({"type": "info", "message": "Starting analysis..."}) + "\n"
                 
-                # Get statistics if file path is provided
-                stats_info = ""
-                sample_data_info = ""
-                
-                if file_path and os.path.exists(file_path):
-                    logger.info(f"File exists, getting data from: {file_path}")
-                    try:
-                        # Get statistics
-                        logger.debug("Getting statistics from file")
-                        stats = describe_csv(file_path=file_path)
-                        stats_info = f"Here are some statistics about the dataset: {json.dumps(stats)}"
-                        stats_message = json.dumps({"type": "info", "message": "Retrieved dataset statistics"}) + "\n"
-                        logger.debug("Yielding statistics message")
-                        yield stats_message
-                        
-                        # Get sample data
-                        logger.debug("Getting sample data from file")
-                        sample_data = get_csv_sample(file_path, sample_size=100)
-                        sample_data_info = f"Here is a sample of the data (up to 100 rows): f{sample_data}"
-                        sample_message = json.dumps({"type": "info", "message": f"Retrieved sample rows"}) + "\n"
-                        logger.debug("Yielding sample data message")
-                        yield sample_message
-                        
-                    except Exception as e:
-                        error_msg = f"Failed to get data: {str(e)}"
-                        logger.error(f"Error getting data: {error_msg}", exc_info=True)
-                        stats_info = error_msg
-                        warning_message = json.dumps({"type": "warning", "message": error_msg}) + "\n"
-                        yield warning_message
-                else:
-                    logger.warning(f"File path not provided or file doesn't exist: {file_path}")
-                
-                # Create prompt with feature names, statistics, and sample data if available
-                prompt = f"""
-                The CSV contains the following features/columns:
-                {', '.join(column_names)}
-                
-                {stats_info}
-                
-                {sample_data_info}
-                
-                User question: {user_query}
-                
-                Please answer the question based on the column names, statistics, and sample data provided.
-                """
-                
-                # Stream that we're sending to Groq
-                progress_message = json.dumps({"type": "progress", "message": "Sending to Groq..."}) + "\n"
-                logger.info("Sending request to Groq")
-                logger.debug(f"Yielding progress message: {progress_message}")
-                yield progress_message
-                
+                # Use LlamaIndex QueryEngine directly
                 try:
-                    # Define the function for Groq to call
-          
+                    # Get the response from the query engine
+                    response = query_index(user_query, query_engine)
                     
-                    logger.debug("Creating Groq streaming request")
-                    # Call Groq API with streaming
-
-                    chat_history.add_user_message({"role": "user", "content": prompt})
-
-                    stream = groq_client.chat.completions.create(
-                        model="llama3-70b-8192",  # or another available model
-                        messages=chat_history.get_history(),
-                        max_tokens=500,
-                        stream=True  # Enable streaming
-                    )
-                    
-                    logger.info("Groq stream created, processing chunks")
-                    # Stream the response chunks
-                    full_response = ""
-                    chunk_count = 0
-                    for chunk in stream:
-                        chunk_count += 1
-                        logger.debug(f"Processing chunk {chunk_count}")
-                        
-                        if hasattr(chunk.choices[0].delta, 'content') and chunk.choices[0].delta.content:
-                            content = chunk.choices[0].delta.content
-                            full_response += content
-                            content_message = json.dumps({"type": "content", "text": content}) + "\n"
-                            logger.debug(f"Yielding content chunk: {content[:50]}...")
-                            yield content_message
-                        
-                        # Handle tool calls
-                        if hasattr(chunk.choices[0].delta, 'tool_calls') and chunk.choices[0].delta.tool_calls:
-                            logger.info("Tool call detected in response")
-                            for tool_call in chunk.choices[0].delta.tool_calls:
-                                if tool_call.function.name == "get_column_statistics":
-                                    try:
-                                        # Parse the function arguments
-                                        logger.debug("Parsing tool call arguments")
-                                        args = json.loads(tool_call.function.arguments)
-                                        columns = args.get('columns', [])
-                                        logger.info(f"Tool call for columns: {columns}")
-                                        
-                                        # Get statistics for the requested columns if file_path exists
-                                        if file_path and os.path.exists(file_path):
-                                            logger.debug("Getting statistics for requested columns")
-                                            df = pd.read_csv(file_path)
-                                            column_stats = {}
-                                            for col in columns:
-                                                if col in df.columns:
-                                                    if pd.api.types.is_numeric_dtype(df[col]):
-                                                        column_stats[col] = {
-                                                            "median": float(df[col].median()),
-                                                            "min": float(df[col].min()),
-                                                            "max": float(df[col].max()),
-                                                            "mean": float(df[col].mean()),
-                                                            "std": float(df[col].std())
-                                                        }
-                                                    else:
-                                                        # For non-numeric columns, provide value counts
-                                                        column_stats[col] = {
-                                                            "type": "categorical",
-                                                            "unique_values": df[col].nunique(),
-                                                            "most_common": df[col].value_counts().index[0] if not df[col].empty else None
-                                                        }
-                                            
-                                            # Send statistics back as a message
-                                            stat_message = f"Retrieved statistics for columns: {', '.join(columns)}"
-                                            tool_result = json.dumps({"type": "tool_result", "name": "get_column_statistics", "data": column_stats}) + "\n"
-                                            logger.info(f"Yielding tool result: {stat_message}")
-                                            yield tool_result
-                                    except Exception as e:
-                                        error_message = f"Error in tool call: {str(e)}"
-                                        logger.error(error_message, exc_info=True)
-                                        yield json.dumps({"type": "error", "message": error_message}) + "\n"
-                    
-                    logger.info(f"Processed {chunk_count} chunks from Groq")
-                    # Final completion message
-                    complete_message = json.dumps({"type": "complete", "message": "Analysis complete", "full_response": full_response}) + "\n"
-                    logger.info("Analysis complete, yielding final message")
-                    yield complete_message
+                    # Stream the response in chunks
+                    full_response = str(response)
+                    # Simulate streaming by chunking the response
+                    chunk_size = 20  # Adjust based on your preference
+                    for i in range(0, len(full_response), chunk_size):
+                        chunk = full_response[i:i + chunk_size]
+                        yield json.dumps({"type": "content", "text": chunk}) + "\n"
+                        time.sleep(0.01)  # Small delay for streaming effect
                     
                 except Exception as e:
-                    error_message = str(e)
-                    logger.error(f"Error in Groq request: {error_message}", exc_info=True)
-                    yield json.dumps({"type": "error", "message": error_message}) + "\n"
-            
+                    error_msg = f"Error querying index: {str(e)}"
+                    logger.error(error_msg)
+                    yield json.dumps({"type": "error", "message": error_msg}) + "\n"
+                
+                # Complete message
+                yield json.dumps({"type": "complete", "message": "Analysis complete"}) + "\n"
+                
             except Exception as e:
                 error_message = f"Error in generate function: {str(e)}"
                 logger.error(error_message, exc_info=True)
                 yield json.dumps({"type": "error", "message": error_message}) + "\n"
         
-        logger.info("Setting up streaming response")
         return Response(stream_with_context(generate()), mimetype='text/event-stream')
         
     except Exception as e:
@@ -383,5 +369,4 @@ def stream_analysis():
 
 if __name__ == '__main__':
     logger.info("Starting Flask application")
-    chat_history = ChatHistory()
     app.run(debug=True)
