@@ -435,3 +435,83 @@ AttributeError: 'ChatHistory' object has no attribute 'add_message'. Did you mea
 2025-03-30 19:04:12,951 - __main__ - INFO - Groq stream created, processing chunks
 2025-03-30 19:04:14,237 - __main__ - INFO - Processed 370 chunks from Groq
 2025-03-30 19:04:14,237 - __main__ - INFO - Analysis complete, yielding final message
+2025-03-31 23:10:00,902 - __main__ - INFO - Starting Flask application
+2025-03-31 23:10:00,943 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-31 23:10:00,943 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-31 23:10:00,946 - werkzeug - INFO -  * Restarting with stat
+2025-03-31 23:10:01,377 - __main__ - INFO - Starting Flask application
+2025-03-31 23:10:01,391 - werkzeug - WARNING -  * Debugger is active!
+2025-03-31 23:10:01,401 - werkzeug - INFO -  * Debugger PIN: 840-882-887
+2025-03-31 23:12:47,311 - __main__ - INFO - Starting Flask application
+2025-03-31 23:12:47,335 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-31 23:12:47,335 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-31 23:12:47,336 - werkzeug - INFO -  * Restarting with stat
+2025-03-31 23:12:47,792 - __main__ - INFO - Starting Flask application
+2025-03-31 23:12:47,807 - werkzeug - WARNING -  * Debugger is active!
+2025-03-31 23:12:47,822 - werkzeug - INFO -  * Debugger PIN: 840-882-887
+2025-03-31 23:22:58,845 - __main__ - INFO - Starting Flask application
+2025-03-31 23:22:58,851 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-31 23:22:58,851 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-31 23:22:58,863 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-03-31 23:22:59,380 - __main__ - INFO - Starting Flask application
+2025-03-31 23:22:59,382 - werkzeug - WARNING -  * Debugger is active!
+2025-03-31 23:22:59,394 - werkzeug - INFO -  * Debugger PIN: 125-882-472
+2025-03-31 23:23:04,286 - werkzeug - INFO -  * Detected change in '/Users/reetmitra/Desktop/CS3264/backend.py', reloading
+2025-03-31 23:23:05,412 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-03-31 23:29:51,371 - __main__ - INFO - Starting Flask application
+2025-03-31 23:29:51,434 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-31 23:29:51,434 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-31 23:29:51,436 - werkzeug - INFO -  * Restarting with stat
+2025-03-31 23:29:52,033 - __main__ - INFO - Starting Flask application
+2025-03-31 23:29:52,050 - werkzeug - WARNING -  * Debugger is active!
+2025-03-31 23:29:52,066 - werkzeug - INFO -  * Debugger PIN: 840-882-887
+2025-03-31 23:35:19,814 - __main__ - INFO - Starting Flask application
+2025-03-31 23:35:19,842 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-31 23:35:19,843 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-31 23:35:19,843 - werkzeug - INFO -  * Restarting with stat
+2025-03-31 23:35:20,429 - __main__ - INFO - Starting Flask application
+2025-03-31 23:35:20,443 - werkzeug - WARNING -  * Debugger is active!
+2025-03-31 23:35:20,455 - werkzeug - INFO -  * Debugger PIN: 840-882-887
+2025-04-01 00:34:28,101 - __main__ - INFO - Starting Flask application
+2025-04-01 00:34:28,161 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-01 00:34:28,162 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-01 00:34:28,162 - werkzeug - INFO -  * Restarting with stat
+2025-04-01 00:34:29,023 - __main__ - INFO - Starting Flask application
+2025-04-01 00:34:29,047 - werkzeug - WARNING -  * Debugger is active!
+2025-04-01 00:34:29,061 - werkzeug - INFO -  * Debugger PIN: 840-882-887
+2025-04-01 00:35:27,981 - __main__ - INFO - Starting Flask application
+2025-04-01 00:35:27,986 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-01 00:35:27,986 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-01 00:35:28,005 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-04-01 00:35:28,524 - __main__ - INFO - Starting Flask application
+2025-04-01 00:35:28,526 - werkzeug - WARNING -  * Debugger is active!
+2025-04-01 00:35:28,537 - werkzeug - INFO -  * Debugger PIN: 125-882-472
+2025-04-01 00:36:06,924 - werkzeug - INFO -  * Detected change in '/Users/reetmitra/Desktop/CS3264/backend.py', reloading
+2025-04-01 00:36:08,076 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-04-01 00:36:08,797 - __main__ - INFO - Starting Flask application
+2025-04-01 00:42:07,540 - __main__ - INFO - Starting Flask application
+2025-04-01 00:42:07,543 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-01 00:42:07,543 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-01 00:46:50,743 - werkzeug - INFO - 127.0.0.1 - - [01/Apr/2025 00:46:50] "POST /upload HTTP/1.1" 200 -
+2025-04-01 00:47:04,875 - werkzeug - INFO - 127.0.0.1 - - [01/Apr/2025 00:47:04] "POST /upload HTTP/1.1" 200 -
+2025-04-01 00:47:38,056 - werkzeug - INFO - 127.0.0.1 - - [01/Apr/2025 00:47:38] "POST /upload HTTP/1.1" 200 -
+2025-04-01 00:47:48,936 - werkzeug - INFO - 127.0.0.1 - - [01/Apr/2025 00:47:48] "POST /upload HTTP/1.1" 200 -
+2025-04-01 00:47:48,942 - __main__ - INFO - Starting stream_analysis function
+2025-04-01 00:47:48,942 - __main__ - INFO - Request data: columns=9, query=Help my analyze the values..., file_path=/Users/reetmitra/Desktop/CS3264/datasets/diabetes.csv
+2025-04-01 00:47:48,943 - __main__ - INFO - Setting up streaming response
+2025-04-01 00:47:48,943 - __main__ - INFO - Starting generate function in stream_analysis
+2025-04-01 00:47:48,944 - werkzeug - INFO - 127.0.0.1 - - [01/Apr/2025 00:47:48] "POST /stream_analysis HTTP/1.1" 200 -
+2025-04-01 00:47:48,946 - __main__ - INFO - File exists, getting data from: /Users/reetmitra/Desktop/CS3264/datasets/diabetes.csv
+2025-04-01 00:47:48,977 - __main__ - INFO - Sending request to Groq
+2025-04-01 00:47:49,743 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-01 00:47:49,743 - __main__ - INFO - Groq stream created, processing chunks
+2025-04-01 00:47:51,298 - __main__ - INFO - Processed 483 chunks from Groq
+2025-04-01 00:47:51,298 - __main__ - INFO - Analysis complete, yielding final message

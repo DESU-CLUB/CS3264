@@ -32,7 +32,8 @@ if uploaded_file is not None:
     with st.spinner("Processing your file..."):
         files = {"file": uploaded_file}
         try:
-            response = requests.post("http://localhost:5000/upload", files=files)
+            response = requests.post("http://127.0.0.1:5000/upload", files=files)
+            print(response)
             if response.status_code == 200:
                 # Store the response data in session state for later use.
                 st.session_state.data = response.json()
@@ -77,7 +78,7 @@ if uploaded_file is not None:
         try:
             # Call the streaming endpoint with CSV columns and the user query
             with requests.post(
-                "http://localhost:5000/stream_analysis",
+                "http://127.0.0.1:5000/stream_analysis",
                 json={
                     "columns": st.session_state.data.get("columns", []),
                     "query": prompt,

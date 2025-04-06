@@ -384,4 +384,4 @@ def stream_analysis():
 if __name__ == '__main__':
     logger.info("Starting Flask application")
     chat_history = ChatHistory()
-    app.run(debug=True)
+    app.run()
