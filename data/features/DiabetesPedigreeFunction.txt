@@ -1,0 +1,23 @@
+# Feature: DiabetesPedigreeFunction
+
+## Type: Numeric
+
+## Description
+This is a numeric feature in the dataset.
+
+## Statistics
+- Minimum value: 0.078
+- Maximum value: 2.42
+- Mean: 0.47187630208333325
+- Median: 0.3725
+- Standard deviation: 0.3313285950127749
+
+## Correlations with other features
+- Correlation with Pregnancies: -0.0335
+- Correlation with Glucose: 0.1373
+- Correlation with BloodPressure: 0.0413
+- Correlation with SkinThickness: 0.1839
+- Correlation with Insulin: 0.1851
+- Correlation with BMI: 0.1406
+- Correlation with Age: 0.0336
+- Correlation with Outcome: 0.1738

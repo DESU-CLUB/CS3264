@@ -1,0 +1,205 @@
+/* Custom CSS for the application */
+
+/* Add cyberpunk-style glowing effect for primary elements */
+.glow-effect {
+  box-shadow: 0 0 10px rgba(0, 230, 118, 0.7);
+  transition: box-shadow 0.3s ease;
+}
+
+.glow-effect:hover {
+  box-shadow: 0 0 20px rgba(0, 230, 118, 0.9);
+}
+
+/* Animated green border */
+.animated-border {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.animated-border::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  z-index: -1;
+  background: linear-gradient(45deg, #00E676, #1DE9B6, #00E676, #1DE9B6);
+  background-size: 400% 400%;
+  border-radius: 14px;
+  animation: border-animation 6s ease infinite;
+}
+
+@keyframes border-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Terminal-style text effect */
+.terminal-text {
+  font-family: 'Consolas', 'Monaco', monospace;
+  color: #00E676;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 3px solid #00E676;
+}
+
+/* Cyberpunk-style header */
+.cyber-header {
+  position: relative;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding-bottom: 10px;
+}
+
+.cyber-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #00E676;
+}
+
+/* Matrix-like animation for backgrounds */
+.matrix-bg {
+  position: relative;
+  background-color: #121212;
+  overflow: hidden;
+}
+
+.matrix-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 230, 118, 0.05), rgba(0, 230, 118, 0.05));
+  opacity: 0.15;
+  z-index: 0;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1E1E1E; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00C853;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00E676; 
+}
+
+/* Green neon buttons */
+.neon-button {
+  color: #00E676;
+  border: 1px solid #00E676;
+  background-color: transparent;
+  box-shadow: 0 0 5px rgba(0, 230, 118, 0.5);
+  transition: all 0.3s ease;
+}
+
+.neon-button:hover {
+  background-color: rgba(0, 230, 118, 0.1);
+  box-shadow: 0 0 15px rgba(0, 230, 118, 0.8);
+}
+
+/* Pulse animation for highlighting */
+.pulse {
+  animation: pulse-animation 2s infinite;
+}
+
+@keyframes pulse-animation {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 230, 118, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 230, 118, 0);
+  }
+}
+
+/* Chat message styling */
+.chat-message {
+  padding: 12px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.user-message {
+  background-color: rgba(0, 230, 118, 0.1);
+  border-left: 3px solid #00E676;
+}
+
+.assistant-message {
+  background-color: rgba(29, 233, 182, 0.1);
+  border-left: 3px solid #1DE9B6;
+}
+
+/* Sidebar collapse/expand animation */
+.sidebar-transition {
+  transition: width 0.3s ease, transform 0.3s ease;
+}
+
+/* Collapsible drawer */
+.drawer-container {
+  transition: all 0.3s ease;
+}
+
+/* Floating action button */
+.floating-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+}
+
+/* Data table styling */
+.data-table-container {
+  border: 1px solid rgba(0, 230, 118, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.data-table-header {
+  background-color: rgba(0, 230, 118, 0.1);
+}
+
+/* Loader animation */
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid rgba(0, 230, 118, 0.3);
+  border-radius: 50%;
+  border-top-color: #00E676;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+} 

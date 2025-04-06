@@ -1,0 +1,23 @@
+# Feature: Glucose
+
+## Type: Numeric
+
+## Description
+This is a numeric feature in the dataset.
+
+## Statistics
+- Minimum value: 0.0
+- Maximum value: 199.0
+- Mean: 120.89453125
+- Median: 117.0
+- Standard deviation: 31.97261819513622
+
+## Correlations with other features
+- Correlation with Pregnancies: 0.1295
+- Correlation with BloodPressure: 0.1526
+- Correlation with SkinThickness: 0.0573
+- Correlation with Insulin: 0.3314
+- Correlation with BMI: 0.2211
+- Correlation with DiabetesPedigreeFunction: 0.1373
+- Correlation with Age: 0.2635
+- Correlation with Outcome: 0.4666
