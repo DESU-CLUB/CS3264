@@ -1,0 +1,7 @@
+Model,Test_Accuracy,Synthetic_Accuracy,Difference,Better
+knn,1.0000,1.0000,0.0000,Equal
+sgd,0.9712,0.9712,0.0000,Equal
+naivebayes,0.8846,0.8846,0.0000,Equal
+mlp,0.9904,1.0000,0.0096,Synthetic
+svm,0.7692,0.7019,-0.0673,Test
+randomforest,1.0000,1.0000,0.0000,Equal
