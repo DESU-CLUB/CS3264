@@ -3,10 +3,15 @@ import pandas as pd
 import numpy as np
 import logging
 import csv
-import importlib
+import subprocess
+import json
 from sklearn.model_selection import train_test_split
 from generate_data import generate_data
 import matplotlib.pyplot as plt
+from dotenv import load_dotenv
+import sys
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
+load_dotenv()
 
 # Configure logging
 logging.basicConfig(
@@ -15,6 +20,46 @@ logging.basicConfig(
     handlers=[logging.StreamHandler()]
 )
 logger = logging.getLogger(__name__)
+
+def parse_custom_csv(file_path, output_path=None):
+    """
+    Reads a CSV file where the header is stored in the second column of the first row,
+    and each subsequent row's second column contains a semicolon-separated string
+    representing the data. Optionally writes the parsed DataFrame to output_path
+    as a semicolon-separated CSV file.
+
+    Args:
+        file_path (str): Path to the input CSV file.
+        output_path (str, optional): Path to save the processed CSV file.
+                                     If provided, the DataFrame will be written with semicolons as separators.
+    
+    Returns:
+        pd.DataFrame: Parsed DataFrame with appropriate column names.
+    """
+    # Read the CSV without a header so that all rows are treated as data.
+    df_raw = pd.read_csv(file_path, sep=';', header=None)
+    
+    # The first row, second column contains the header string.
+    header_str = df_raw.iloc[0, 1]
+    columns = header_str.split(';')
+    
+    # Remove the header row and reset the index.
+    df_data = df_raw.iloc[1:].reset_index(drop=True)
+    
+    # The data is stored in the second column as a semicolon-separated string.
+    data = df_data[1].str.split(';', expand=True)
+    data.columns = columns
+    
+    # Optionally, if you want to include the first column as an index:
+    data['index'] = df_data[0].astype(int)
+    data = data.set_index('index')
+    
+    # Write the parsed DataFrame to output_path if provided, using semicolon as separator.
+    if output_path:
+        data.to_csv(output_path, sep=';')
+    
+    return data
+
 
 def run_evaluation_pipeline(dataset_path, output_dir="./results", test_size=0.2, n_samples=None, 
                            models=None, random_state=42, features_dir="./data/features/"):
@@ -48,7 +93,11 @@ def run_evaluation_pipeline(dataset_path, output_dir="./results", test_size=0.2,
     
     # Step 1: Load and split original dataset
     logger.info(f"Loading dataset from {dataset_path}")
-    df = pd.read_csv(dataset_path)
+    df = pd.read_csv(dataset_path, sep=';')  # Read with semicolon separator
+    
+    # Add these debug lines
+    print(f"First row of loaded data: {df.iloc[0].to_dict()}")
+    print(f"Data types: {df.dtypes}")
     
     # Determine label column (assumed to be the last column)
     label_column = df.columns[-1]
@@ -67,8 +116,8 @@ def run_evaluation_pipeline(dataset_path, output_dir="./results", test_size=0.2,
     # Save train and test splits
     train_path = os.path.join(output_dir, "data", "train_data.csv")
     test_path = os.path.join(output_dir, "data", "test_data.csv")
-    train_df.to_csv(train_path, index=False)
-    test_df.to_csv(test_path, index=False)
+    train_df.to_csv(train_path, index=False, sep=';')  # Use semicolon separator
+    test_df.to_csv(test_path, index=False, sep=';')
     logger.info(f"Saved train data ({len(train_df)} rows) to {train_path}")
     logger.info(f"Saved test data ({len(test_df)} rows) to {test_path}")
     
@@ -104,7 +153,8 @@ def run_evaluation_pipeline(dataset_path, output_dir="./results", test_size=0.2,
         return None
     
     logger.info(f"Generated {len(synthetic_df)} rows of synthetic data")
-    
+    synthetic_df.to_csv('synthetic_output.csv', index=True,sep=';')
+    synthetic_df = parse_custom_csv('synthetic_output.csv')
     # Step 4: Evaluate models on the synthetic data
     logger.info("Evaluating models on synthetic data")
     synthetic_results = run_model_evaluations(synthetic_df, output_prefix="synthetic", output_dir=output_dir, models=models)
@@ -197,7 +247,13 @@ def run_model_evaluations(data, output_prefix, output_dir="./results", models=No
     
     # Save data to a temporary file for models that read from CSV
     temp_data_path = os.path.join(model_results_dir, f"{output_prefix}_data.csv")
-    data.to_csv(temp_data_path, index=False)
+    
+    # Debug the data before saving
+    print(f"Data shape before saving: {data.shape}")
+    print(f"Data columns before saving: {data.columns.tolist()}")
+    
+    # Make sure column headers are properly included
+    data.to_csv(temp_data_path, index=False, sep=';', header=True)
     
     # Determine models to evaluate
     if models is None:
@@ -221,7 +277,7 @@ def run_model_evaluations(data, output_prefix, output_dir="./results", models=No
     # Process the data
     processed_data = process_data(data)
     processed_data_path = os.path.join(model_results_dir, f"{output_prefix}_processed_data.csv")
-    processed_data.to_csv(processed_data_path, index=False)
+    processed_data.to_csv(processed_data_path, index=False, sep=';')
     
     # Results will be collected here
     results = {}
@@ -247,7 +303,15 @@ def run_model_evaluations(data, output_prefix, output_dir="./results", models=No
             temp_module_name = f"temp_model_{model_name}"
             temp_module_path = os.path.join(model_results_dir, f"{temp_module_name}.py")
             
-            # Create a temporary script that uses our data and runs the model
+            # Precompute fixed paths to avoid backslashes in f-string expressions
+            project_root = os.path.abspath(os.path.dirname(__file__))
+            fixed_project_root = project_root.replace("\\", "/")
+            fixed_processed_data_path = processed_data_path.replace("\\", "/")
+            metrics_file_path = os.path.join(model_results_dir, f'{output_prefix}_{model_name}_metrics.json').replace("\\", "/")
+            confusion_file_path = os.path.join(model_results_dir, f'{output_prefix}_{model_name}_confusion.png').replace("\\", "/")
+            fixed_metrics_csv_path = metrics_path.replace("\\", "/")
+            
+            # Add this at the beginning of your temp script to print paths
             with open(temp_module_path, 'w') as f:
                 f.write(f"""
 import pandas as pd
@@ -256,41 +320,96 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 import sys
+import csv
 import os
 import json
-import csv
 
-# Add the parent directory to the path to import data_util
-sys.path.append(os.path.abspath("./evals/models"))
-from data_util import process_data
+# Debug info
+print("Current working directory:", os.getcwd())
+print("Python path:", sys.path)
+print("Directory contents:", os.listdir("."))
+if os.path.exists("evals"):
+    print("evals directory exists, contents:", os.listdir("evals"))
+else:
+    print("evals directory not found!")
 
-# Import the model functionality from the model script
-from evals.models.{model_name} import *
+# Add the project root to the path
+project_root = "{fixed_project_root}"
+sys.path.append(project_root)
+sys.path.append(os.path.join(project_root, "evals", "models"))
 
-# Load our prepared processed data
-df = pd.read_csv("{processed_data_path.replace('\\', '/')}")
-X = df.drop('{data.columns[-1]}', axis=1)
-y = df['{data.columns[-1]}']
+print("Python path after additions:", sys.path)
 
-# Try to get predictions by calling a function run_model if it exists;
-# otherwise, fall back to assuming a global 'model' variable exists.
+# Try to import and report results
 try:
-    y_pred = run_model(X, y)  # run_model should be defined in the model script
-except Exception as e:
-    try:
-        y_pred = model.predict(X)
-    except Exception as e:
-        print(f"Error: unable to get predictions for model {model_name} - {{str(e)}}")
-        sys.exit(1)
+    from evals.models.{model_name} import *
+    print("Successfully imported {model_name} model")
+except ImportError as e:
+    print(f"Import error: {{e}}")
+""")
+            
+            with open(temp_module_path, 'a') as f:
+                f.write(f"""
+# Add the root directory to the path
+sys.path.append("{fixed_project_root}")
+sys.path.append(os.path.join("{fixed_project_root}", "evals", "models"))
 
-# Compute metrics
+# Import the required modules
+try:
+    from evals.models.data_util import process_data
+    from evals.models.{model_name} import run_model
+    print("Successfully imported modules")
+except ImportError as e:
+    print(f"Import error: {{e}}")
+    sys.exit(1)
+
+# Debug raw CSV contents
+with open("{fixed_processed_data_path}", 'r') as csvfile:
+    print("First few lines of raw CSV file:")
+    for i, line in enumerate(csvfile):
+        if i < 5:  # Print first 5 lines
+            print(f"Line {{i}}: {{line.strip()}}")
+        else:
+            break
+
+# Load our prepared data with explicit header setting
+df = pd.read_csv("{fixed_processed_data_path}", sep=';')
+print(f"Original data shape: {{df.shape}}")
+print(f"CSV column names: {{df.columns.tolist()}}")
+
+# Make sure we're using the right target column
+label_column = '{data.columns[-1]}'
+X = df.drop(label_column, axis=1)
+y = df[label_column]
+
+print(f"X columns: {{X.columns.tolist()}}")
+print(f"X shape: {{X.shape}}, y shape: {{len(y)}}")
+
+print(f"First 5 rows of X:\\n{{X.head().to_string()}}")
+print(f"First 5 values of y: {{y.head().values}}")
+
+# Try to get predictions
+try:
+    print("Calling run_model...")
+    y_pred = run_model(X, y)
+    print("run_model completed successfully!")
+except Exception as e:
+    import traceback
+    print(f"Error in run_model: {{type(e).__name__}}: {{str(e)}}")
+    traceback.print_exc()
+    sys.exit(1)
+""")
+            
+            with open(temp_module_path, 'a') as f:
+                f.write(f"""
+# Calculate metrics
 metrics = {{
     'accuracy': accuracy_score(y, y_pred),
     'classification_report': classification_report(y, y_pred, output_dict=True)
 }}
 
 # Save metrics to file
-metrics_file = "{os.path.join(model_results_dir, f'{output_prefix}_{model_name}_metrics.json').replace('\\', '/')}"
+metrics_file = "{metrics_file_path}"
 with open(metrics_file, 'w') as f_out:
     json.dump(metrics, f_out, indent=2)
 
@@ -301,7 +420,7 @@ sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
 plt.title('{model_name} Confusion Matrix ({output_prefix} data)')
 plt.xlabel('Predicted')
 plt.ylabel('Actual')
-plt.savefig("{os.path.join(model_results_dir, f'{output_prefix}_{model_name}_confusion.png').replace('\\', '/')}")
+plt.savefig("{confusion_file_path}")
 plt.close()
 
 # Print key metrics
@@ -313,7 +432,7 @@ print(f"Recall: {{weighted_avg['recall']:.4f}}")
 print(f"F1 Score: {{weighted_avg['f1-score']:.4f}}")
 
 # Append metrics to the CSV file
-with open("{metrics_path.replace('\\', '/')}", 'a', newline='') as csvfile:
+with open("{fixed_metrics_csv_path}", 'a', newline='') as csvfile:
     csv_writer = csv.writer(csvfile)
     csv_writer.writerow([
         '{model_name}', 
@@ -324,12 +443,12 @@ with open("{metrics_path.replace('\\', '/')}", 'a', newline='') as csvfile:
     ])
 """)
             
-            # Execute the temporary module
-            import subprocess
+            # Execute the temporary module with the correct working directory
             result = subprocess.run(
                 ["python", temp_module_path], 
                 capture_output=True, 
-                text=True
+                text=True,
+                cwd=os.path.abspath(os.path.dirname(__file__))  # Set working directory to project root
             )
             
             logger.info(f"Model output: {result.stdout}")
@@ -337,7 +456,6 @@ with open("{metrics_path.replace('\\', '/')}", 'a', newline='') as csvfile:
                 logger.warning(f"Model errors: {result.stderr}")
             
             # Try to load metrics from the file
-            import json
             metrics_file = os.path.join(model_results_dir, f"{output_prefix}_{model_name}_metrics.json")
             if os.path.exists(metrics_file):
                 with open(metrics_file, 'r') as f_in:
@@ -411,7 +529,7 @@ def compare_results(test_results, synthetic_results, output_dir):
                 # Add to plot data
                 models.append(model_name)
                 test_acc.append(test_accuracy)
-                synthetic_acc.append(synth_accuracy)
+                synthetic_acc.append(synth_accuracy)  # fixed variable name here
                 
             except Exception as e:
                 logger.error(f"Error comparing results for {model_name}: {str(e)}")
