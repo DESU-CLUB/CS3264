@@ -29,6 +29,30 @@ logger = logging.getLogger(__name__)
 # Load environment variables
 load_dotenv()
 
+# Configuration for LLM parameters
+class LLMConfig:
+    def __init__(self, 
+                 temperature=0.7, 
+                 top_p=0.9, 
+                 repetition_penalty=1.1, 
+                 max_tokens=2048):
+        self.model = "gpt-4o-mini"  # Fixed model
+        self.temperature = temperature
+        self.top_p = top_p
+        self.repetition_penalty = repetition_penalty
+        self.max_tokens = max_tokens
+    
+    def get_openai_params(self):
+        """Get parameters formatted for OpenAI API calls"""
+        params = {
+            "model": self.model,
+            "temperature": self.temperature,
+            "top_p": self.top_p,
+            "max_tokens": self.max_tokens,
+            "frequency_penalty": self.repetition_penalty - 1.0  # Convert to OpenAI format
+        }
+        return params
+
 # 1. Function to load query engine or regenerate embeddings
 def load_query_engine(persist_dir="./data/chroma_db", features_dir="./data/features/", collection_name="dquery"):
     """
@@ -292,8 +316,8 @@ class FeatureValueResponse(BaseModel):
     feature_type: Literal["numeric", "categorical", "boolean", "datetime"]
     generated_value: Union[NumericFeatureValue, CategoricalFeatureValue, BooleanFeatureValue, DateTimeFeatureValue]
 
-# 5. Generate value for a feature
-def generate_feature_value(query_engine, feature, feature_type, context, existing_values, csv_path):
+# 5. Generate value for a feature with LLM config
+def generate_feature_value(query_engine, feature, feature_type, context, existing_values, csv_path, llm_config=None):
     """
     Generate a value for a feature based on its type and context
     
@@ -304,10 +328,15 @@ def generate_feature_value(query_engine, feature, feature_type, context, existin
         context: Context from get_feature_context
         existing_values: Dictionary of already generated feature values
         csv_path: Path to the CSV file
+        llm_config: Configuration for LLM parameters
         
     Returns:
         Union[float, str, bool, datetime]: Generated value
     """
+    # Use provided LLM config or default
+    if llm_config is None:
+        llm_config = LLMConfig()
+    
     # Use OpenAI to generate a value based on context
     client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
     
@@ -394,8 +423,13 @@ def generate_feature_value(query_engine, feature, feature_type, context, existin
     
     # Call the API
     try:
+        # Get OpenAI parameters from the config
+        openai_params = llm_config.get_openai_params()
         completion = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model=openai_params["model"],
+            temperature=openai_params["temperature"],
+            top_p=openai_params["top_p"],
+            max_tokens=openai_params["max_tokens"],
             messages=[
                 {"role": "system", "content": "You are a data generation expert. Generate realistic feature values based on context and relationships."},
                 {"role": "user", "content": prompt}
@@ -577,8 +611,8 @@ async def get_feature_type_async(csv_path, feature):
     """
     return await asyncio.to_thread(get_feature_type, csv_path, feature)
 
-# Make feature value generation asynchronous
-async def generate_feature_value_async(query_engine, feature, feature_type, context, existing_values, csv_path):
+# Make feature value generation asynchronous with LLM config
+async def generate_feature_value_async(query_engine, feature, feature_type, context, existing_values, csv_path, llm_config=None):
     """
     Asynchronously generate a value for a feature based on its type and context
     
@@ -589,6 +623,7 @@ async def generate_feature_value_async(query_engine, feature, feature_type, cont
         context: Context from get_feature_context
         existing_values: Dictionary of already generated feature values
         csv_path: Path to the CSV file
+        llm_config: Configuration for LLM parameters
         
     Returns:
         Union[float, str, bool, datetime]: Generated value
@@ -600,7 +635,8 @@ async def generate_feature_value_async(query_engine, feature, feature_type, cont
         feature_type,
         context,
         existing_values,
-        csv_path
+        csv_path,
+        llm_config
     )
 
 # Build dependency graph for features
@@ -652,7 +688,7 @@ def build_feature_dependency_graph(csv_path, query_engine):
     return G
 
 # Generate a feature value with caching
-async def generate_feature_with_cache(cache, query_engine, feature, label_column, label_value, current_values, csv_path):
+async def generate_feature_with_cache(cache, query_engine, feature, label_column, label_value, current_values, csv_path, llm_config=None):
     """
     Generate a value for a feature with caching of context and type info
     
@@ -664,6 +700,7 @@ async def generate_feature_with_cache(cache, query_engine, feature, label_column
         label_value: Value of the label
         current_values: Dictionary of already generated feature values
         csv_path: Path to the CSV file
+        llm_config: Configuration for LLM parameters
         
     Returns:
         Any: Generated value for the feature
@@ -680,12 +717,12 @@ async def generate_feature_with_cache(cache, query_engine, feature, label_column
     context = await get_feature_context_async(query_engine, feature, label_column, label_value, current_values)
     
     # Generate value
-    value = await generate_feature_value_async(query_engine, feature, feature_type, context, current_values, csv_path)
+    value = await generate_feature_value_async(query_engine, feature, feature_type, context, current_values, csv_path, llm_config)
     
     return value
 
-# Process features in dependency order
-async def process_features_in_dependency_order(G, features, label_column, label_value, query_engine, csv_path):
+# Process features in dependency order with LLM config
+async def process_features_in_dependency_order(G, features, label_column, label_value, query_engine, csv_path, llm_config=None):
     """
     Process features in order of their dependencies
     
@@ -696,6 +733,7 @@ async def process_features_in_dependency_order(G, features, label_column, label_
         label_value: Value of the label
         query_engine: Query engine for ChromaDB
         csv_path: Path to the CSV file
+        llm_config: Configuration for LLM parameters
         
     Returns:
         dict: Generated values for all features
@@ -754,7 +792,7 @@ async def process_features_in_dependency_order(G, features, label_column, label_
         for feature in level:
             if feature != label_column:
                 task = generate_feature_with_cache(
-                    cache, query_engine, feature, label_column, label_value, values, csv_path
+                    cache, query_engine, feature, label_column, label_value, values, csv_path, llm_config
                 )
                 tasks.append((feature, task))
         
@@ -764,9 +802,11 @@ async def process_features_in_dependency_order(G, features, label_column, label_
     
     return values
 
-# Main asynchronous data generation function
+# Main asynchronous data generation function with LLM parameters
 async def generate_data_async(csv_path, n_samples=10, persist_dir="./data/chroma_db", features_dir="./data/features/", 
-                  collection_name="dquery", output_path=None, max_workers=None, batch_size=None):
+                  collection_name="dquery", output_path=None, max_workers=None, batch_size=None,
+                  temperature=0.7, top_p=0.9, repetition_penalty=1.1, max_tokens=2048,
+                  progress_callback=None):
     """
     Asynchronously generate synthetic data based on feature relationships and constraints
     
@@ -779,11 +819,27 @@ async def generate_data_async(csv_path, n_samples=10, persist_dir="./data/chroma
         output_path: Path to save the generated data (optional)
         max_workers: Maximum number of workers for parallel processing
         batch_size: Number of rows to process in a single batch (None for all at once)
+        temperature: Sampling temperature (0.0-2.0)
+        top_p: Nucleus sampling parameter (0.0-1.0)
+        repetition_penalty: Penalty for repetition (1.0-2.0)
+        max_tokens: Maximum number of tokens to generate
+        progress_callback: Callback function to report progress (row_index, total_rows)
         
     Returns:
         pd.DataFrame: Generated data
     """
     logger.info(f"Generating {n_samples} rows of synthetic data asynchronously")
+    
+    # Configure LLM parameters
+    llm_config = LLMConfig(
+        temperature=temperature, 
+        top_p=top_p, 
+        repetition_penalty=repetition_penalty, 
+        max_tokens=max_tokens
+    )
+    
+    # Log the LLM configuration
+    logger.info(f"Using LLM configuration: {llm_config.__dict__}")
     
     # Load query engine
     query_engine = load_query_engine(persist_dir, features_dir, collection_name)
@@ -816,7 +872,11 @@ async def generate_data_async(csv_path, n_samples=10, persist_dir="./data/chroma
     # Generate rows (in parallel with a limit on concurrency)
     semaphore = asyncio.Semaphore(max_workers or 5)  # Default to 5 concurrent row generations
     
+    # Progress tracking variables
+    completed_rows = 0
+    
     async def generate_row(i):
+        nonlocal completed_rows
         async with semaphore:
             logger.info(f"Generating row {i+1}/{n_samples}")
             
@@ -826,8 +886,13 @@ async def generate_data_async(csv_path, n_samples=10, persist_dir="./data/chroma
             
             # Generate all feature values according to dependency order
             row = await process_features_in_dependency_order(
-                G, all_features, label_column, label_value, query_engine, csv_path
+                G, all_features, label_column, label_value, query_engine, csv_path, llm_config
             )
+            
+            # Update progress after completing a row
+            completed_rows += 1
+            if progress_callback:
+                progress_callback(completed_rows, n_samples)
             
             return row
     
@@ -839,6 +904,11 @@ async def generate_data_async(csv_path, n_samples=10, persist_dir="./data/chroma
         logger.info(f"Processing batch of {len(batch_indices)} rows")
         batch_tasks = [generate_row(i) for i in batch_indices]
         batch_results = await asyncio.gather(*batch_tasks)
+        
+        # Report progress after batch completion
+        if progress_callback:
+            progress_callback(completed_rows, n_samples)
+            
         return batch_results
     
     # Create batches
@@ -860,11 +930,17 @@ async def generate_data_async(csv_path, n_samples=10, persist_dir="./data/chroma
         generated_df.to_csv(output_path, index=False)
         logger.info(f"Saved {n_samples} generated rows to {output_path}")
     
+    # Final progress update
+    if progress_callback:
+        progress_callback(n_samples, n_samples)  # Ensure 100% progress reported
+    
     return generated_df
 
-# Synchronous wrapper for the asynchronous function
+# Synchronous wrapper for the asynchronous function with LLM parameters
 def generate_data(csv_path, n_samples=10, persist_dir="./data/chroma_db", features_dir="./data/features/", 
-                  collection_name="dquery", output_path=None, max_workers=None, batch_size=None):
+                  collection_name="dquery", output_path=None, max_workers=None, batch_size=None,
+                  temperature=0.7, top_p=0.9, repetition_penalty=1.1, max_tokens=2048,
+                  progress_callback=None):
     """
     Generate synthetic data based on feature relationships and constraints
     
@@ -877,12 +953,29 @@ def generate_data(csv_path, n_samples=10, persist_dir="./data/chroma_db", featur
         output_path: Path to save the generated data (optional)
         max_workers: Maximum number of workers for parallel processing
         batch_size: Number of rows to process in a single batch (None for all at once)
+        temperature: Sampling temperature (0.0-2.0)
+        top_p: Nucleus sampling parameter (0.0-1.0)
+        repetition_penalty: Penalty for repetition (1.0-2.0)
+        max_tokens: Maximum number of tokens to generate
+        progress_callback: Callback function to report progress (row_index, total_rows)
         
     Returns:
         pd.DataFrame: Generated data
     """
     return asyncio.run(generate_data_async(
-        csv_path, n_samples, persist_dir, features_dir, collection_name, output_path, max_workers, batch_size
+        csv_path=csv_path, 
+        n_samples=n_samples, 
+        persist_dir=persist_dir, 
+        features_dir=features_dir, 
+        collection_name=collection_name, 
+        output_path=output_path, 
+        max_workers=max_workers, 
+        batch_size=batch_size,
+        temperature=temperature,
+        top_p=top_p,
+        repetition_penalty=repetition_penalty,
+        max_tokens=max_tokens,
+        progress_callback=progress_callback
     ))
 
 if __name__ == "__main__":
@@ -890,7 +983,7 @@ if __name__ == "__main__":
     csv_path = "./datasets/diabetes.csv"
     output_path = "./data/generated/generated_diabetes.csv"
     
-    # Generate synthetic data
+    # Generate synthetic data with custom LLM parameters
     generated_data = generate_data(
         csv_path=csv_path,
         n_samples=10,  # Generate 10 samples for testing
@@ -898,8 +991,12 @@ if __name__ == "__main__":
         features_dir="./data/features/",
         collection_name="dquery",
         output_path=output_path,
-        max_workers=5,  # Process 3 rows concurrently
-        batch_size=5    # Process in batches of 5 rows
+        max_workers=5,  # Process 5 rows concurrently
+        batch_size=5,   # Process in batches of 5 rows
+        temperature=0.7,
+        top_p=0.9,
+        repetition_penalty=1.1,
+        max_tokens=2048
     )
     
     # Display the generated data

@@ -136,6 +136,51 @@ def query_index(query_text, query_engine=None, persist_dir="./data/chroma_db", c
     response = query_engine.query(query_text)
     return response
 
+def get_embedding(text):
+    """Generate embedding for a text string using the same embedding model used for indexing"""
+    from llama_index.embeddings.openai import OpenAIEmbedding
+    
+    # Initialize the embedding model - make sure this matches the model used in your index
+    embed_model = OpenAIEmbedding()
+    
+    # Get embedding
+    embedding = embed_model.get_text_embedding(text)
+    return embedding
+
+def get_stored_embeddings(persist_dir="./data/chroma_db", collection_name="dquery", where_filter=None, limit=None):
+    """
+    Retrieve embeddings from the ChromaDB collection
+    
+    Args:
+        persist_dir: Directory where ChromaDB index is persisted
+        collection_name: Name of the ChromaDB collection
+        where_filter: Optional filter condition (dict)
+        limit: Optional limit on number of results
+        
+    Returns:
+        Dict containing document IDs, documents, and their embeddings
+    """
+    logging.info(f"Retrieving embeddings from collection {collection_name}")
+    
+    # Load existing chroma client and collection
+    chroma_client = chromadb.PersistentClient(path=persist_dir)
+    
+    try:
+        chroma_collection = chroma_client.get_collection(name=collection_name)
+        
+        # Get documents with embeddings
+        results = chroma_collection.get(
+            where=where_filter,
+            limit=limit,
+            include=["embeddings", "documents", "metadatas"]
+        )
+        
+        logging.info(f"Retrieved {len(results.get('ids', []))} embeddings")
+        return results
+    except Exception as e:
+        logging.error(f"Error retrieving embeddings: {str(e)}")
+        return None
+
 if __name__ == "__main__":
     # Build and persist index
     persist_dir = "./data/chroma_db"
