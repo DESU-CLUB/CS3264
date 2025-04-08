@@ -1248,9 +1248,4 @@ def query_csv():
 
 if __name__ == '__main__':
     logger.info("Starting Flask application")
-<<<<<<< HEAD
-    chat_history = ChatHistory()
-    app.run()
-=======
     app.run(debug=True)
->>>>>>> upstream/main

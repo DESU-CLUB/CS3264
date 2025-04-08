@@ -104,33 +104,6 @@ if uploaded_file is not None:
     except Exception as e:
         st.error(f"Error reading CSV file: {e}")
 
-<<<<<<< HEAD
-    # Reset file pointer before sending it to the backend
-    uploaded_file.seek(0)
-    with st.spinner("Processing your file..."):
-        files = {"file": uploaded_file}
-        try:
-            response = requests.post("http://127.0.0.1:5000/upload", files=files)
-            print(response)
-            if response.status_code == 200:
-                # Store the response data in session state for later use.
-                st.session_state.data = response.json()
-                st.success("File uploaded successfully!")
-                st.subheader("File Details")
-                col1, col2 = st.columns(2)
-                with col1:
-                    st.metric("Number of Rows", st.session_state.data.get("rows", "N/A"))
-                with col2:
-                    st.metric("Number of Columns", len(st.session_state.data.get("columns", [])))
-                with st.expander("View Column Names"):
-                    st.write(st.session_state.data.get("columns", []))
-            else:
-                st.error(f"Error: {response.json().get('error', 'Unknown error occurred')}")
-        except requests.exceptions.ConnectionError:
-            st.error("Failed to connect to the backend server. Please make sure it is running.")
-        except Exception as e:
-            st.error(f"An unexpected error occurred: {str(e)}")
-=======
     # Process button
     if st.button("Process File and Generate Data"):
         # Reset file pointer before sending it to the backend
@@ -159,7 +132,6 @@ if uploaded_file is not None:
                 st.error("Failed to connect to the backend server. Please make sure it is running.")
             except Exception as e:
                 st.error(f"An unexpected error occurred: {str(e)}")
->>>>>>> upstream/main
 
     # ---------------------------------------------------------------------
     # Chat Interface Section (Only if CSV is uploaded)
