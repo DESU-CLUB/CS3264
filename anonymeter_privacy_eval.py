@@ -1,4 +1,5 @@
 import os
+import numpy as np
 import pandas as pd
 import matplotlib
 matplotlib.use("Agg")  # Use a non-interactive backend to allow saving figures in parallel
@@ -82,6 +83,60 @@ def singling_out_risk(ori, syn, control, run_num, output_dir="./results"):
         with open(output_path, 'w') as json_file:
             json.dump(results, json_file, indent=4)
 
+        logger.info(f"Singling Out risk results saved to {output_path}")
+    
+        # Now create a graphic using the json file
+        # Load the data from the JSON string
+        with open(output_path, 'r') as json_file:
+            data = json.load(json_file)
+
+        # Extract values for plotting
+        attack_rates = {
+            "Main Attack Rate": (data["main_attack_rate"]["main_attack_rate_value"], data["main_attack_rate"]["main_attack_rate_error"]),
+            "Baseline Attack Rate": (data["baseline_attack_rate"]["baseline_attack_rate_value"], data["baseline_attack_rate"]["baseline_attack_rate_error"]),
+            "Control Attack Rate": (data["control_attack_rate"]["control_attack_rate_value"], data["control_attack_rate"]["control_attack_rate_error"]),
+        }
+
+        # Extract univariate risk values and confidence intervals# Extract univariate risk values and confidence intervals
+        univariate_risk = {
+            "Risk Value": data["univariate_risk"]["univariate_risk_risk_value"],
+            "CI Lower": data["univariate_risk"]["univariate_risk_ci_lower"],
+            "CI Upper": data["univariate_risk"]["univariate_risk_ci_upper"]
+        }
+
+        # Plotting the bar plot for attack rates
+        labels = list(attack_rates.keys())
+        values = [attack_rates[label][0] for label in labels]
+        errors = [attack_rates[label][1] for label in labels]
+        x_pos = np.arange(len(labels))
+
+        fig, ax = plt.subplots(figsize=(8, 6))
+
+        # Plot the bar plot for attack rates with error bars
+        ax.bar(x_pos, values, yerr=errors, capsize=5, color='skyblue', label='Attack Rates')
+        ax.set_xticks(x_pos)
+        ax.set_xticklabels(labels)
+        ax.set_ylabel('Attack Rate')
+        ax.set_title('Attack Rates with Errors')
+
+        # Plotting the univariate risk with confidence intervals
+        risk_value = univariate_risk["Risk Value"]
+        ci_lower = univariate_risk["CI Lower"]
+        ci_upper = univariate_risk["CI Upper"]
+        
+        ax.errorbar(x=1, y=risk_value, yerr=[[risk_value - ci_lower], [ci_upper - risk_value]], fmt='o', color='red', label='Univariate Risk')
+
+        # Adding labels and legends
+        ax.set_xlabel('Attack Types / Risk')
+        ax.legend()
+
+        # Save the plot as an image file
+        singling_out_risk_plot_path = os.path.join(output_dir, "plots", "singling_out_risk_"+ str(run_num) + ".png")
+        plt.tight_layout()
+        plt.savefig(singling_out_risk_plot_path)
+    
+        # Inform user that the plot was saved
+        logger.info(f"Plot saved to {singling_out_risk_plot_path}")
 
 
     except RuntimeError as ex: 
@@ -180,12 +235,12 @@ def linkability_risk(ori, syn, control, aux_cols, run_num, output_dir="./results
     ax.legend()
 
     # Save the figure as a .png file
-    attack_rates_risk_plot_path = os.path.join(output_dir, "plots", "attack_rates_risk_"+ str(run_num) + ".png")
+    linkability_risk_plot_path = os.path.join(output_dir, "plots", "linkability_risk_"+ str(run_num) + ".png")
     plt.tight_layout()
-    plt.savefig(attack_rates_risk_plot_path)
+    plt.savefig(linkability_risk_plot_path)
 
     # Inform user that the plot was saved
-    logger.info(f"Plot saved to {attack_rates_risk_plot_path}")
+    logger.info(f"Plot saved to {linkability_risk_plot_path}")
 
 
 # Evaluate the Inference risk
@@ -270,12 +325,13 @@ def anonymeter_eval(dataset_path="./results"):
     # Evaluate different scenarios for linkability
     aux_col_labels = ["low", "mid", "high"]
     aux_col_settings = [aux_cols_one, aux_cols_two, aux_cols_three]
-    # for j in range(3):
-    #     linkability_risk(ori, syn, control, aux_col_settings[j], aux_col_labels[j])
+    for j in range(3):
+        linkability_risk(ori, syn, control, aux_col_settings[j], aux_col_labels[j])
+
 
     # Evaluate inference risk
-    # for k in range(3):
-        # inference_risk(ori, syn, control, k)
+    for k in range(3):
+        inference_risk(ori, syn, control, k)
     
 
 if __name__ == "__main__":
@@ -284,3 +340,4 @@ if __name__ == "__main__":
     logger.info("\n*** Anonymeter Evaluation completed ***")
     logger.info("-----------------------------------------------------------------------------"
     "----------------------------------------------------------------------------------------")
+    

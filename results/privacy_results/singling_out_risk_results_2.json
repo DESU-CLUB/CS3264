@@ -4,8 +4,8 @@
         "main_attack_rate_error": 0.012176738806271101
     },
     "baseline_attack_rate": {
-        "baseline_attack_rate_value": 0.005796921549853016,
-        "baseline_attack_rate_error": 0.005443785155293741
+        "baseline_attack_rate_value": 0.0038121702307761206,
+        "baseline_attack_rate_error": 0.00381217023077612
     },
     "control_attack_rate": {
         "control_attack_rate_value": 0.009114107495263098,

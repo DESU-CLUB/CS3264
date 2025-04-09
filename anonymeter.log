@@ -13,36 +13,43 @@ control length = 104
 4   38       1         0           0                   0         0           0  ...             0                0                0                 0         0        0      0
 
 [5 rows x 17 columns]
-Inference risk sample size =104
-inference risk evaluator done
-visualising results
-saving results
-Inference risk sample size =104
-inference risk evaluator done
-visualising results
-saving results
-Inference risk sample size =104
-inference risk evaluator done
-visualising results
-saving results
-
-*** Anonymeter Evaluation completed ***
----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-*** Starting Anonymeter evaluation ***
-
-ori length = 416
-
-syn length = 416
-
-control length = 104
-   age  gender  polyuria  polydipsia  sudden_weight_loss  weakness  polyphagia  ...  irritability  delayed_healing  partial_paresis  muscle_stiffness  alopecia  obesity  class
-0   53       1         1           1                   1         1           1  ...             1                0                1                 0         1        0      1
-1   41       1         1           1                   1         1           1  ...             1                0                0                 0         0        1      1
-2   54       1         0           0                   1         1           0  ...             0                1                0                 0         1        0      0
-3   50       0         0           0                   0         1           0  ...             0                1                0                 0         1        0      0
-4   38       1         0           0                   0         0           0  ...             0                0                0                 0         0        0      0
-
-[5 rows x 17 columns]
+Features: ['age', 'gender', 'polyuria', 'polydipsia', 'sudden_weight_loss', 'weakness', 'polyphagia', 'genital_thrush', 'visual_blurring', 'itching', 'irritability', 'delayed_healing', 'partial_paresis', 'muscle_stiffness', 'alopecia', 'obesity', 'class']
+Singling Out risk sample size =500
+Query class != 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class != 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class > 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class != 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class <= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class <= 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class == 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class > 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class < 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class < 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class == 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class <= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class == 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class != 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class != 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class > 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class < 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class == 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class == 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class == 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class == 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class <= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class > 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class == 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class < 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Found 29 failed queries out of 500. Check DEBUG messages for more details.
+Query class <= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Attack `univariate` could generate only 13 singling out queries out of the requested 500. This can probably lead to an underestimate of the singling out risk.
+univariate risk = PrivacyRisk(value=0.012676358299394232, ci=(0.0, 0.027006769705180386))
+Singling Out risk results saved to ./results\privacy_results\singling_out_risk_results_0.json
 *** Starting Anonymeter evaluation ***
 
 ori length = 416
@@ -59,119 +66,157 @@ control length = 104
 
 [5 rows x 17 columns]
 Features: ['age', 'gender', 'polyuria', 'polydipsia', 'sudden_weight_loss', 'weakness', 'polyphagia', 'genital_thrush', 'visual_blurring', 'itching', 'irritability', 'delayed_healing', 'partial_paresis', 'muscle_stiffness', 'alopecia', 'obesity', 'class']
-
-*** Anonymeter Evaluation completed ***
----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-*** Starting Anonymeter evaluation ***
-
-ori length = 416
-
-syn length = 416
-
-control length = 104
-   age  gender  polyuria  polydipsia  sudden_weight_loss  weakness  polyphagia  ...  irritability  delayed_healing  partial_paresis  muscle_stiffness  alopecia  obesity  class
-0   53       1         1           1                   1         1           1  ...             1                0                1                 0         1        0      1
-1   41       1         1           1                   1         1           1  ...             1                0                0                 0         0        1      1
-2   54       1         0           0                   1         1           0  ...             0                1                0                 0         1        0      0
-3   50       0         0           0                   0         1           0  ...             0                1                0                 0         1        0      0
-4   38       1         0           0                   0         0           0  ...             0                0                0                 0         0        0      0
-
-[5 rows x 17 columns]
-Features: ['age', 'gender', 'polyuria', 'polydipsia', 'sudden_weight_loss', 'weakness', 'polyphagia', 'genital_thrush', 'visual_blurring', 'itching', 'irritability', 'delayed_healing', 'partial_paresis', 'muscle_stiffness', 'alopecia', 'obesity', 'class']
+Singling Out risk sample size =500
+Query class == 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class <= 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class != 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class <= 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class != 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class < 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class <= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class != 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class != 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class != 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class > 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class != 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class == 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class <= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class > 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class > 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class <= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class <= 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class != 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class <= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class == 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class == 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class != 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class == 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Found 31 failed queries out of 500. Check DEBUG messages for more details.
+Query class <= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Attack `univariate` could generate only 13 singling out queries out of the requested 500. This can probably lead to an underestimate of the singling out risk.
+univariate risk = PrivacyRisk(value=0.01496807215498419, ci=(0.0002153757675271012, 0.029720768542441277))
+Singling Out risk results saved to ./results\privacy_results\singling_out_risk_results_0.json
+Plot saved to ./results\plots\singling_out_risk_0.png
+Singling Out risk sample size =500
+Query class < 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class < 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class != 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class <= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class == 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class != 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class > 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class == 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class == 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class < 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class < 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class < 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class > 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class != 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class != 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class <= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class != 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class <= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class == 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class <= 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class <= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class < 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class < 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class <= 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class == 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class < 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class < 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class > 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class == 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class > 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class == 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Found 37 failed queries out of 500. Check DEBUG messages for more details.
+Query class >= 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class <= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Attack `univariate` could generate only 13 singling out queries out of the requested 500. This can probably lead to an underestimate of the singling out risk.
+univariate risk = PrivacyRisk(value=0.01496807215498419, ci=(0.0002153757675271012, 0.029720768542441277))
+Singling Out risk results saved to ./results\privacy_results\singling_out_risk_results_1.json
+Plot saved to ./results\plots\singling_out_risk_1.png
+Singling Out risk sample size =500
+Query class == 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class < 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class == 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class > 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class <= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class != 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class <= 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class < 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class == 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class <= 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class <= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class <= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class == 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class == 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class != 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class > 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Found 23 failed queries out of 500. Check DEBUG messages for more details.
+Query class <= 0 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Query class >= 1 failed with Python keyword not valid identifier in numexpr query (<unknown>, line 1).
+Attack `univariate` could generate only 13 singling out queries out of the requested 500. This can probably lead to an underestimate of the singling out risk.
+univariate risk = PrivacyRisk(value=0.012676358299394232, ci=(0.0, 0.027006769705180386))
+Singling Out risk results saved to ./results\privacy_results\singling_out_risk_results_2.json
+Plot saved to ./results\plots\singling_out_risk_2.png
 Linkability risk sample size =104
-*** Starting Anonymeter evaluation ***
-
-ori length = 416
-
-syn length = 416
-
-control length = 104
-   age  gender  polyuria  polydipsia  sudden_weight_loss  weakness  polyphagia  ...  irritability  delayed_healing  partial_paresis  muscle_stiffness  alopecia  obesity  class
-0   53       1         1           1                   1         1           1  ...             1                0                1                 0         1        0      1
-1   41       1         1           1                   1         1           1  ...             1                0                0                 0         0        1      1
-2   54       1         0           0                   1         1           0  ...             0                1                0                 0         1        0      0
-3   50       0         0           0                   0         1           0  ...             0                1                0                 0         1        0      0
-4   38       1         0           0                   0         0           0  ...             0                0                0                 0         0        0      0
-
-[5 rows x 17 columns]
-Features: ['age', 'gender', 'polyuria', 'polydipsia', 'sudden_weight_loss', 'weakness', 'polyphagia', 'genital_thrush', 'visual_blurring', 'itching', 'irritability', 'delayed_healing', 'partial_paresis', 'muscle_stiffness', 'alopecia', 'obesity', 'class']
-Linkability risk sample size =104
-*** Starting Anonymeter evaluation ***
-
-ori length = 416
-
-syn length = 416
-
-control length = 104
-   age  gender  polyuria  polydipsia  sudden_weight_loss  weakness  polyphagia  ...  irritability  delayed_healing  partial_paresis  muscle_stiffness  alopecia  obesity  class
-0   53       1         1           1                   1         1           1  ...             1                0                1                 0         1        0      1
-1   41       1         1           1                   1         1           1  ...             1                0                0                 0         0        1      1
-2   54       1         0           0                   1         1           0  ...             0                1                0                 0         1        0      0
-3   50       0         0           0                   0         1           0  ...             0                1                0                 0         1        0      0
-4   38       1         0           0                   0         0           0  ...             0                0                0                 0         0        0      0
-
-[5 rows x 17 columns]
-Features: ['age', 'gender', 'polyuria', 'polydipsia', 'sudden_weight_loss', 'weakness', 'polyphagia', 'genital_thrush', 'visual_blurring', 'itching', 'irritability', 'delayed_healing', 'partial_paresis', 'muscle_stiffness', 'alopecia', 'obesity', 'class']
-Linkability risk sample size =104
-*** Starting Anonymeter evaluation ***
-
-ori length = 416
-
-syn length = 416
-
-control length = 104
-   age  gender  polyuria  polydipsia  sudden_weight_loss  weakness  polyphagia  ...  irritability  delayed_healing  partial_paresis  muscle_stiffness  alopecia  obesity  class
-0   53       1         1           1                   1         1           1  ...             1                0                1                 0         1        0      1
-1   41       1         1           1                   1         1           1  ...             1                0                0                 0         0        1      1
-2   54       1         0           0                   1         1           0  ...             0                1                0                 0         1        0      0
-3   50       0         0           0                   0         1           0  ...             0                1                0                 0         1        0      0
-4   38       1         0           0                   0         0           0  ...             0                0                0                 0         0        0      0
-
-[5 rows x 17 columns]
-Features: ['age', 'gender', 'polyuria', 'polydipsia', 'sudden_weight_loss', 'weakness', 'polyphagia', 'genital_thrush', 'visual_blurring', 'itching', 'irritability', 'delayed_healing', 'partial_paresis', 'muscle_stiffness', 'alopecia', 'obesity', 'class']
-Linkability risk sample size =104
-*** Starting Anonymeter evaluation ***
-
-ori length = 416
-
-syn length = 416
-
-control length = 104
-   age  gender  polyuria  polydipsia  sudden_weight_loss  weakness  polyphagia  ...  irritability  delayed_healing  partial_paresis  muscle_stiffness  alopecia  obesity  class
-0   53       1         1           1                   1         1           1  ...             1                0                1                 0         1        0      1
-1   41       1         1           1                   1         1           1  ...             1                0                0                 0         0        1      1
-2   54       1         0           0                   1         1           0  ...             0                1                0                 0         1        0      0
-3   50       0         0           0                   0         1           0  ...             0                1                0                 0         1        0      0
-4   38       1         0           0                   0         0           0  ...             0                0                0                 0         0        0      0
-
-[5 rows x 17 columns]
-Features: ['age', 'gender', 'polyuria', 'polydipsia', 'sudden_weight_loss', 'weakness', 'polyphagia', 'genital_thrush', 'visual_blurring', 'itching', 'irritability', 'delayed_healing', 'partial_paresis', 'muscle_stiffness', 'alopecia', 'obesity', 'class']
-Linkability risk sample size =104
-aux cols =0
-*** Starting Anonymeter evaluation ***
-
-ori length = 416
-
-syn length = 416
-
-control length = 104
-   age  gender  polyuria  polydipsia  sudden_weight_loss  weakness  ...  delayed_healing  partial_paresis  muscle_stiffness  alopecia  obesity  class
-0   53       1         1           1                   1         1  ...                0                1                 0         1        0      1
-1   41       1         1           1                   1         1  ...                0                0                 0         0        1      1
-2   54       1         0           0                   1         1  ...                1                0                 0         1        0      0
-3   50       0         0           0                   0         1  ...                1                0                 0         1        0      0
-4   38       1         0           0                   0         0  ...                0                0                 0         0        0      0
-
-[5 rows x 17 columns]
-Features: ['age', 'gender', 'polyuria', 'polydipsia', 'sudden_weight_loss', 'weakness', 'polyphagia', 'genital_thrush', 'visual_blurring', 'itching', 'irritability', 'delayed_healing', 'partial_paresis', 'muscle_stiffness', 'alopecia', 'obesity', 'class']
-Linkability risk sample size =104
-aux cols =[['age', 'polyuria'], ['gender', 'polydipsia']]
+aux cols =[['age'], ['gender']]
 Linkability risk evaluator done
-Success rate of main attack: SuccessRate(value=0.34236118292626616, error=0.08937254433767411)
-Success rate of baseline attack: SuccessRate(value=0.18472236585253238, error=0.07234494416487695)
-Success rate of control attack: SuccessRate(value=0.32381543974112104, error=0.08808390303158965)
-risk = PrivacyRisk(value=0.09420550265581269, ci=(0.0, 0.23347601835357246))
-Linkability risk results saved to ./results\privacy_results\linkability_risk_results0.json
+Success rate of main attack: SuccessRate(value=0.3145425681485485, error=0.08737795420691087)
+Success rate of baseline attack: SuccessRate(value=0.20326810903767753, error=0.07518665713468975)
+Success rate of control attack: SuccessRate(value=0.258905338593113, error=0.08220893503928098)
+risk = PrivacyRisk(value=0.10535106569577127, ci=(0.0, 0.21136780399359512))
+Linkability risk results saved to ./results\privacy_results\linkability_risk_results_low.json
+Plot saved to ./results\plots\linkability_risk_low.png
+Linkability risk sample size =104
+aux cols =[['age', 'gender', 'polyuria', 'alopecia'], ['age', 'gender', 'polydipsia', 'obesity']]
+Linkability risk evaluator done
+Success rate of main attack: SuccessRate(value=0.9450978364434838, error=0.039845350212539384)
+Success rate of baseline attack: SuccessRate(value=0.2125409806302501, error=0.07650572792730323)
+Success rate of control attack: SuccessRate(value=0.8801877352954757, error=0.05971891931855611)
+risk = PrivacyRisk(value=0.6281119251672534, ci=(0.3114856771282688, 0.9447381732062381))
+Linkability risk results saved to ./results\privacy_results\linkability_risk_results_mid.json
+Plot saved to ./results\plots\linkability_risk_mid.png
+Linkability risk sample size =104
+aux cols =[['age', 'gender', 'polyuria', 'polyphagia', 'alopecia'], ['age', 'gender', 'polydipsia', 'visual_blurring', 'obesity']]
+Linkability risk evaluator done
+Success rate of main attack: SuccessRate(value=0.9265520932583385, error=0.04674136110632696)
+Success rate of baseline attack: SuccessRate(value=0.23108672381539525, error=0.07895730440690675)
+Success rate of control attack: SuccessRate(value=0.7596404045920322, error=0.08009552071199844)
+risk = PrivacyRisk(value=0.7261227648181915, ci=(0.532227695467935, 0.920017834168448))
+Linkability risk results saved to ./results\privacy_results\linkability_risk_results_high.json
+Plot saved to ./results\plots\linkability_risk_high.png
+Inference risk sample size =104
+Inference risk evaluator done
+Inference risk results saved to ./results\plots\inference_risk0.png
+Inference risk sample size =104
+Inference risk evaluator done
+Inference risk results saved to ./results\plots\inference_risk1.png
+Inference risk sample size =104
+Inference risk evaluator done
+Inference risk results saved to ./results\plots\inference_risk2.png
 
 *** Anonymeter Evaluation completed ***
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------

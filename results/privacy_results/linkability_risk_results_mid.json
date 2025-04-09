@@ -1,11 +1,11 @@
 {
     "main_attack_rate": {
-        "main_attack_rate_value": 0.9543707080360563,
-        "main_attack_rate_error": 0.035771109061166685
+        "main_attack_rate_value": 0.9450978364434838,
+        "main_attack_rate_error": 0.039845350212539384
     },
     "baseline_attack_rate": {
-        "baseline_attack_rate_value": 0.19399523744510494,
-        "baseline_attack_rate_error": 0.07380100445070921
+        "baseline_attack_rate_value": 0.2125409806302501,
+        "baseline_attack_rate_error": 0.07650572792730323
     },
     "control_attack_rate": {
         "control_attack_rate_value": 0.8801877352954757,
