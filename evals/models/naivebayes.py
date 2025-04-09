@@ -6,7 +6,7 @@ from data_util import process_data
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
-def run_model(X, y):
+def run_model(X_train, Y_train, X_test, Y_test):
     """
     Standard interface for the pipeline.
     This function trains a Gaussian Naive Bayes classifier on the provided data (X, y)
@@ -21,8 +21,8 @@ def run_model(X, y):
     """
     # Assume X is already processed; if additional processing is needed, add it here
     nb_model = GaussianNB(var_smoothing=1e-9)
-    nb_model.fit(X, y)
-    return nb_model.predict(X)
+    nb_model.fit(X_train, Y_train)
+    return nb_model.predict(X_test)
 
 if __name__ == "__main__":
     # Standalone execution for testing the Naive Bayes model.

@@ -1,0 +1,3 @@
+Model,Original_Accuracy,Synthetic_Accuracy,Difference,Better
+knn,0.9231,0.9231,0.0000,Equal
+mlp,0.9231,0.9808,0.0577,Synthetic
