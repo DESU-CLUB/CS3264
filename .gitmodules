@@ -1,0 +1,3 @@
+[submodule "anonymeter"]
+	path = anonymeter
+	url = https://github.com/statice/anonymeter.git
