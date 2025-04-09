@@ -1,0 +1,177 @@
+*** Starting Anonymeter evaluation ***
+
+ori length = 416
+
+syn length = 416
+
+control length = 104
+   age  gender  polyuria  polydipsia  sudden_weight_loss  weakness  polyphagia  ...  irritability  delayed_healing  partial_paresis  muscle_stiffness  alopecia  obesity  class
+0   53       1         1           1                   1         1           1  ...             1                0                1                 0         1        0      1
+1   41       1         1           1                   1         1           1  ...             1                0                0                 0         0        1      1
+2   54       1         0           0                   1         1           0  ...             0                1                0                 0         1        0      0
+3   50       0         0           0                   0         1           0  ...             0                1                0                 0         1        0      0
+4   38       1         0           0                   0         0           0  ...             0                0                0                 0         0        0      0
+
+[5 rows x 17 columns]
+Inference risk sample size =104
+inference risk evaluator done
+visualising results
+saving results
+Inference risk sample size =104
+inference risk evaluator done
+visualising results
+saving results
+Inference risk sample size =104
+inference risk evaluator done
+visualising results
+saving results
+
+*** Anonymeter Evaluation completed ***
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*** Starting Anonymeter evaluation ***
+
+ori length = 416
+
+syn length = 416
+
+control length = 104
+   age  gender  polyuria  polydipsia  sudden_weight_loss  weakness  polyphagia  ...  irritability  delayed_healing  partial_paresis  muscle_stiffness  alopecia  obesity  class
+0   53       1         1           1                   1         1           1  ...             1                0                1                 0         1        0      1
+1   41       1         1           1                   1         1           1  ...             1                0                0                 0         0        1      1
+2   54       1         0           0                   1         1           0  ...             0                1                0                 0         1        0      0
+3   50       0         0           0                   0         1           0  ...             0                1                0                 0         1        0      0
+4   38       1         0           0                   0         0           0  ...             0                0                0                 0         0        0      0
+
+[5 rows x 17 columns]
+*** Starting Anonymeter evaluation ***
+
+ori length = 416
+
+syn length = 416
+
+control length = 104
+   age  gender  polyuria  polydipsia  sudden_weight_loss  weakness  polyphagia  ...  irritability  delayed_healing  partial_paresis  muscle_stiffness  alopecia  obesity  class
+0   53       1         1           1                   1         1           1  ...             1                0                1                 0         1        0      1
+1   41       1         1           1                   1         1           1  ...             1                0                0                 0         0        1      1
+2   54       1         0           0                   1         1           0  ...             0                1                0                 0         1        0      0
+3   50       0         0           0                   0         1           0  ...             0                1                0                 0         1        0      0
+4   38       1         0           0                   0         0           0  ...             0                0                0                 0         0        0      0
+
+[5 rows x 17 columns]
+Features: ['age', 'gender', 'polyuria', 'polydipsia', 'sudden_weight_loss', 'weakness', 'polyphagia', 'genital_thrush', 'visual_blurring', 'itching', 'irritability', 'delayed_healing', 'partial_paresis', 'muscle_stiffness', 'alopecia', 'obesity', 'class']
+
+*** Anonymeter Evaluation completed ***
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*** Starting Anonymeter evaluation ***
+
+ori length = 416
+
+syn length = 416
+
+control length = 104
+   age  gender  polyuria  polydipsia  sudden_weight_loss  weakness  polyphagia  ...  irritability  delayed_healing  partial_paresis  muscle_stiffness  alopecia  obesity  class
+0   53       1         1           1                   1         1           1  ...             1                0                1                 0         1        0      1
+1   41       1         1           1                   1         1           1  ...             1                0                0                 0         0        1      1
+2   54       1         0           0                   1         1           0  ...             0                1                0                 0         1        0      0
+3   50       0         0           0                   0         1           0  ...             0                1                0                 0         1        0      0
+4   38       1         0           0                   0         0           0  ...             0                0                0                 0         0        0      0
+
+[5 rows x 17 columns]
+Features: ['age', 'gender', 'polyuria', 'polydipsia', 'sudden_weight_loss', 'weakness', 'polyphagia', 'genital_thrush', 'visual_blurring', 'itching', 'irritability', 'delayed_healing', 'partial_paresis', 'muscle_stiffness', 'alopecia', 'obesity', 'class']
+Linkability risk sample size =104
+*** Starting Anonymeter evaluation ***
+
+ori length = 416
+
+syn length = 416
+
+control length = 104
+   age  gender  polyuria  polydipsia  sudden_weight_loss  weakness  polyphagia  ...  irritability  delayed_healing  partial_paresis  muscle_stiffness  alopecia  obesity  class
+0   53       1         1           1                   1         1           1  ...             1                0                1                 0         1        0      1
+1   41       1         1           1                   1         1           1  ...             1                0                0                 0         0        1      1
+2   54       1         0           0                   1         1           0  ...             0                1                0                 0         1        0      0
+3   50       0         0           0                   0         1           0  ...             0                1                0                 0         1        0      0
+4   38       1         0           0                   0         0           0  ...             0                0                0                 0         0        0      0
+
+[5 rows x 17 columns]
+Features: ['age', 'gender', 'polyuria', 'polydipsia', 'sudden_weight_loss', 'weakness', 'polyphagia', 'genital_thrush', 'visual_blurring', 'itching', 'irritability', 'delayed_healing', 'partial_paresis', 'muscle_stiffness', 'alopecia', 'obesity', 'class']
+Linkability risk sample size =104
+*** Starting Anonymeter evaluation ***
+
+ori length = 416
+
+syn length = 416
+
+control length = 104
+   age  gender  polyuria  polydipsia  sudden_weight_loss  weakness  polyphagia  ...  irritability  delayed_healing  partial_paresis  muscle_stiffness  alopecia  obesity  class
+0   53       1         1           1                   1         1           1  ...             1                0                1                 0         1        0      1
+1   41       1         1           1                   1         1           1  ...             1                0                0                 0         0        1      1
+2   54       1         0           0                   1         1           0  ...             0                1                0                 0         1        0      0
+3   50       0         0           0                   0         1           0  ...             0                1                0                 0         1        0      0
+4   38       1         0           0                   0         0           0  ...             0                0                0                 0         0        0      0
+
+[5 rows x 17 columns]
+Features: ['age', 'gender', 'polyuria', 'polydipsia', 'sudden_weight_loss', 'weakness', 'polyphagia', 'genital_thrush', 'visual_blurring', 'itching', 'irritability', 'delayed_healing', 'partial_paresis', 'muscle_stiffness', 'alopecia', 'obesity', 'class']
+Linkability risk sample size =104
+*** Starting Anonymeter evaluation ***
+
+ori length = 416
+
+syn length = 416
+
+control length = 104
+   age  gender  polyuria  polydipsia  sudden_weight_loss  weakness  polyphagia  ...  irritability  delayed_healing  partial_paresis  muscle_stiffness  alopecia  obesity  class
+0   53       1         1           1                   1         1           1  ...             1                0                1                 0         1        0      1
+1   41       1         1           1                   1         1           1  ...             1                0                0                 0         0        1      1
+2   54       1         0           0                   1         1           0  ...             0                1                0                 0         1        0      0
+3   50       0         0           0                   0         1           0  ...             0                1                0                 0         1        0      0
+4   38       1         0           0                   0         0           0  ...             0                0                0                 0         0        0      0
+
+[5 rows x 17 columns]
+Features: ['age', 'gender', 'polyuria', 'polydipsia', 'sudden_weight_loss', 'weakness', 'polyphagia', 'genital_thrush', 'visual_blurring', 'itching', 'irritability', 'delayed_healing', 'partial_paresis', 'muscle_stiffness', 'alopecia', 'obesity', 'class']
+Linkability risk sample size =104
+*** Starting Anonymeter evaluation ***
+
+ori length = 416
+
+syn length = 416
+
+control length = 104
+   age  gender  polyuria  polydipsia  sudden_weight_loss  weakness  polyphagia  ...  irritability  delayed_healing  partial_paresis  muscle_stiffness  alopecia  obesity  class
+0   53       1         1           1                   1         1           1  ...             1                0                1                 0         1        0      1
+1   41       1         1           1                   1         1           1  ...             1                0                0                 0         0        1      1
+2   54       1         0           0                   1         1           0  ...             0                1                0                 0         1        0      0
+3   50       0         0           0                   0         1           0  ...             0                1                0                 0         1        0      0
+4   38       1         0           0                   0         0           0  ...             0                0                0                 0         0        0      0
+
+[5 rows x 17 columns]
+Features: ['age', 'gender', 'polyuria', 'polydipsia', 'sudden_weight_loss', 'weakness', 'polyphagia', 'genital_thrush', 'visual_blurring', 'itching', 'irritability', 'delayed_healing', 'partial_paresis', 'muscle_stiffness', 'alopecia', 'obesity', 'class']
+Linkability risk sample size =104
+aux cols =0
+*** Starting Anonymeter evaluation ***
+
+ori length = 416
+
+syn length = 416
+
+control length = 104
+   age  gender  polyuria  polydipsia  sudden_weight_loss  weakness  ...  delayed_healing  partial_paresis  muscle_stiffness  alopecia  obesity  class
+0   53       1         1           1                   1         1  ...                0                1                 0         1        0      1
+1   41       1         1           1                   1         1  ...                0                0                 0         0        1      1
+2   54       1         0           0                   1         1  ...                1                0                 0         1        0      0
+3   50       0         0           0                   0         1  ...                1                0                 0         1        0      0
+4   38       1         0           0                   0         0  ...                0                0                 0         0        0      0
+
+[5 rows x 17 columns]
+Features: ['age', 'gender', 'polyuria', 'polydipsia', 'sudden_weight_loss', 'weakness', 'polyphagia', 'genital_thrush', 'visual_blurring', 'itching', 'irritability', 'delayed_healing', 'partial_paresis', 'muscle_stiffness', 'alopecia', 'obesity', 'class']
+Linkability risk sample size =104
+aux cols =[['age', 'polyuria'], ['gender', 'polydipsia']]
+Linkability risk evaluator done
+Success rate of main attack: SuccessRate(value=0.34236118292626616, error=0.08937254433767411)
+Success rate of baseline attack: SuccessRate(value=0.18472236585253238, error=0.07234494416487695)
+Success rate of control attack: SuccessRate(value=0.32381543974112104, error=0.08808390303158965)
+risk = PrivacyRisk(value=0.09420550265581269, ci=(0.0, 0.23347601835357246))
+Linkability risk results saved to ./results\privacy_results\linkability_risk_results0.json
+
+*** Anonymeter Evaluation completed ***
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
