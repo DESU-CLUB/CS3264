@@ -1,19 +1,19 @@
 {
     "main_attack_rate": {
-        "main_attack_rate_value": 0.9358249648509112,
-        "main_attack_rate_error": 0.043466992823236614
+        "main_attack_rate_value": 0.9543707080360563,
+        "main_attack_rate_error": 0.035771109061166685
     },
     "baseline_attack_rate": {
-        "baseline_attack_rate_value": 0.28672395337083073,
-        "baseline_attack_rate_error": 0.08500113325334402
+        "baseline_attack_rate_value": 0.19399523744510494,
+        "baseline_attack_rate_error": 0.07380100445070921
     },
     "control_attack_rate": {
         "control_attack_rate_value": 0.8801877352954757,
         "control_attack_rate_error": 0.05971891931855611
     },
     "n_neighbors_7_risk": {
-        "n_neighbors_7_risk_value": 0.43967834761707747,
-        "n_neighbors_7_risk_ci_lower": 0.020488529268387567,
-        "n_neighbors_7_risk_ci_upper": 0.8588681659657673
+        "n_neighbors_7_risk_value": 0.6281119251672534,
+        "n_neighbors_7_risk_ci_lower": 0.3114856771282688,
+        "n_neighbors_7_risk_ci_upper": 0.9447381732062381
     }
 }

@@ -43,8 +43,24 @@ def fetch_data(dataset_path):
 
 # Evaluate the Singling Out risk
 def singling_out_risk(ori, syn, control, output_dir="./results"):
-    n = min(500, len(ori))  # ensure sample size is valid
-    pass
+    n = min(500, len(ori), len(syn), len(control))  # ensure sample size is valid
+
+    logger.info("Singling Out risk sample size =" + str(n))
+    
+    evaluator = SinglingOutEvaluator(ori=ori, 
+                                 syn=syn, 
+                                 control=control,
+                                 n_attacks=500)
+
+    try:
+        evaluator.evaluate(mode='univariate')
+        risk = evaluator.risk()
+        logger.info(f"univariate risk = {risk}")
+
+    except RuntimeError as ex: 
+        logger.info(f"Singling out evaluation failed with {ex}. Please re-run this cell."
+                "For more stable results increase `n_attacks`. Note that this will "
+                "make the evaluation slower.")
 
 
 # Evaluate the Linkability risk
@@ -94,7 +110,55 @@ def linkability_risk(ori, syn, control, aux_cols, run_num, output_dir="./results
         json.dump(results, json_file, indent=4)
 
     logger.info(f"Linkability risk results saved to {output_path}")
-    return results
+    
+    # Now create a graphic using the json file
+    # Load the data from the JSON string
+    with open(output_path, 'r') as json_file:
+        data = json.load(json_file)
+    # Extracting values
+    attack_rates = {
+        "Main Attack Rate": (data["main_attack_rate"]["main_attack_rate_value"], data["main_attack_rate"]["main_attack_rate_error"]),
+        "Baseline Attack Rate": (data["baseline_attack_rate"]["baseline_attack_rate_value"], data["baseline_attack_rate"]["baseline_attack_rate_error"]),
+        "Control Attack Rate": (data["control_attack_rate"]["control_attack_rate_value"], data["control_attack_rate"]["control_attack_rate_error"]),
+    }
+
+    n_neighbors_7_risk = {
+        "Risk Value": data["n_neighbors_7_risk"]["n_neighbors_7_risk_value"],
+        "CI Lower": data["n_neighbors_7_risk"]["n_neighbors_7_risk_ci_lower"],
+        "CI Upper": data["n_neighbors_7_risk"]["n_neighbors_7_risk_ci_upper"]
+    }
+
+    # Plotting attack rates with error bars
+    fig, ax = plt.subplots(figsize=(10, 6))
+
+    # Bar chart for attack rates
+    categories = list(attack_rates.keys())
+    values = [value[0] for value in attack_rates.values()]
+    errors = [value[1] for value in attack_rates.values()]
+
+    ax.bar(categories, values, yerr=errors, capsize=5, color='skyblue', label='Attack Rate', alpha=0.7)
+
+    # Add the n_neighbors_7_risk (risk value with confidence intervals)
+    ax.errorbar(
+        "Risk Value", n_neighbors_7_risk["Risk Value"],
+        yerr=[[n_neighbors_7_risk["Risk Value"] - n_neighbors_7_risk["CI Lower"]],
+              [n_neighbors_7_risk["CI Upper"] - n_neighbors_7_risk["Risk Value"]]],
+        fmt='o', color='red', label="Linkability Risk (n_neighbors=7)", markersize=8, capsize=5
+    )
+
+    # Add labels, title, and legend
+    ax.set_xlabel('Attack Types')
+    ax.set_ylabel('Rates / Risk')
+    ax.set_title('Linkability Risk and Attack Rates')
+    ax.legend()
+
+    # Save the figure as a .png file
+    attack_rates_risk_plot_path = os.path.join(output_dir, "plots", "attack_rates_risk_"+ str(run_num) + ".png")
+    plt.tight_layout()
+    plt.savefig(attack_rates_risk_plot_path)
+
+    # Inform user that the plot was saved
+    logger.info(f"Plot saved to {attack_rates_risk_plot_path}")
 
 
 # Evaluate the Inference risk
@@ -178,8 +242,8 @@ def anonymeter_eval(dataset_path="./results"):
     # Evaluate different scenarios for linkability
     aux_col_labels = ["low", "mid", "high"]
     aux_col_settings = [aux_cols_one, aux_cols_two, aux_cols_three]
-    for j in range(3):
-        linkability_risk(ori, syn, control, aux_col_settings[j], aux_col_labels[j])
+    # for j in range(3):
+    #     linkability_risk(ori, syn, control, aux_col_settings[j], aux_col_labels[j])
 
     # Evaluate inference risk
     # for k in range(3):
