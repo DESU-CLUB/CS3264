@@ -8,27 +8,30 @@ from sklearn.linear_model import SGDClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.utils.class_weight import compute_class_weight
 
-def run_model(X, y):
+def run_model(X_train, Y_train, X_test, Y_test):
     """
     Standard interface for the pipeline.
     Scales the input features, trains an SGDClassifier with the specified parameters,
-    and returns predictions on the same (scaled) data.
+    and returns predictions on X_test (scaled).
     
     Args:
-        X (pd.DataFrame): Feature data.
-        y (pd.Series): Labels.
+        X_train (pd.DataFrame): Training feature data.
+        Y_train (pd.Series): Training labels.
+        X_test (pd.DataFrame): Test feature data.
+        Y_test (pd.Series): Test labels (not used for training).
         
     Returns:
-        np.array: Predictions for X.
+        np.array: Predictions for X_test.
     """
-    # Scale features
+    # Scale features: fit on training data then transform both training and test data
     scaler = StandardScaler()
-    X_scaled = scaler.fit_transform(X)
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
     
-    # Initialize the SGDClassifier with Weka-equivalent parameters
+    # Initialize the SGDClassifier with specified parameters
     sgd_model = SGDClassifier(
         loss='hinge',             # Hinge loss (SVM)
-        alpha=0.0001,             # Regularization parameter lambda = 10^-4
+        alpha=0.0001,             # Regularization parameter (lambda = 10^-4)
         epsilon=0.001,            # Epsilon value
         eta0=0.01,                # Initial learning rate
         learning_rate='constant', # Constant learning rate
@@ -39,11 +42,11 @@ def run_model(X, y):
         verbose=False             # Set to False for pipeline use
     )
     
-    # Train the model on the entire provided data
-    sgd_model.fit(X_scaled, y)
+    # Train the model on the scaled training data
+    sgd_model.fit(X_train_scaled, Y_train)
     
-    # Return predictions on the scaled data
-    return sgd_model.predict(X_scaled)
+    # Return predictions on the scaled test data
+    return sgd_model.predict(X_test_scaled)
 
 if __name__ == "__main__":
     # Standalone execution for testing/evaluation of the SGD model

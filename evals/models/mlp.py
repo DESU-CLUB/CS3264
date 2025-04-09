@@ -7,47 +7,55 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.preprocessing import StandardScaler
 
-def run_model(X, y):
+from sklearn.preprocessing import StandardScaler
+from sklearn.neural_network import MLPClassifier
+import numpy as np
+
+def run_model(X_train, y_train, X_test, y_test):
     """
     Standard interface for the pipeline.
-    This function scales the data, trains an MLP model using the provided X and y,
-    and returns predictions on the same X.
+    This function scales the features, trains an MLP model using X_train and y_train,
+    and returns predictions on X_test.
     
     Args:
-        X (pd.DataFrame): Features.
-        y (pd.Series): Labels.
+        X_train (pd.DataFrame): Training features.
+        y_train (pd.Series): Training labels.
+        X_test (pd.DataFrame): Test features.
+        y_test (pd.Series): Test labels (not used in training).
         
     Returns:
-        np.array: Predicted labels.
+        np.array: Predicted labels for X_test.
     """
-    # Scale features
+    # Scale the features for both training and test data
     scaler = StandardScaler()
-    X_scaled = scaler.fit_transform(X)
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
     
-    # Determine hidden layer size: ('a' in Weka means (attributes + classes)/2)
-    n_features = X.shape[1]
-    n_classes = len(np.unique(y))
+    # Determine the hidden layer size: ('a' in Weka means (attributes + classes) / 2)
+    n_features = X_train.shape[1]
+    n_classes = len(np.unique(y_train))
     hidden_layer_size = int((n_features + n_classes) / 2)
     
-    # Initialize the MLPClassifier with Weka-equivalent parameters
+    # Initialize the MLPClassifier with parameters analogous to Weka defaults
     mlp_model = MLPClassifier(
-        hidden_layer_sizes=(hidden_layer_size,),  # Single hidden layer with 'a' neurons
-        activation='logistic',                     # Sigmoid activation (Weka default)
-        solver='sgd',                              # Stochastic gradient descent
-        learning_rate_init=0.3,                    # Learning rate as specified
-        momentum=0.2,                              # Momentum as specified
-        max_iter=500,                              # Training time in epochs
+        hidden_layer_sizes=(hidden_layer_size,),  # single hidden layer with 'a' neurons
+        activation='logistic',                     # sigmoid activation
+        solver='sgd',                              # stochastic gradient descent
+        learning_rate_init=0.3,                    # learning rate as specified
+        momentum=0.2,                              # momentum as specified
+        max_iter=500,                              # number of iterations (epochs)
         random_state=42,
-        early_stopping=False,                      # Do not stop early
+        early_stopping=False,
         learning_rate='constant',
         verbose=False
     )
     
-    # Train on the provided data
-    mlp_model.fit(X_scaled, y)
+    # Train the model using the training data
+    mlp_model.fit(X_train_scaled, y_train)
     
-    # Return predictions on the same data
-    return mlp_model.predict(X_scaled)
+    # Return predictions on the test data
+    return mlp_model.predict(X_test_scaled)
+
 
 if __name__ == "__main__":
     # Standalone execution for testing/evaluation purposes.

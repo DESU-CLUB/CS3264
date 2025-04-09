@@ -6,7 +6,7 @@ from data_util import process_data
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
-def run_model(X, y):
+def run_model(X_train, Y_train, X_test, Y_test):
     """
     Standard interface for the pipeline.
     Trains an SVM model using the provided data (X, y) and returns predictions on the same data.
@@ -28,8 +28,8 @@ def run_model(X, y):
         probability=True,          # Enable probability estimates
         random_state=42
     )
-    svm_model.fit(X, y)
-    return svm_model.predict(X)
+    svm_model.fit(X_train, Y_train)
+    return svm_model.predict(X_test)
 
 if __name__ == "__main__":
     # Standalone execution for testing/evaluation of the SVM model.

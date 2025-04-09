@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
-def run_model(X, y):
+def run_model(X_train, Y_train, X_test, Y_test):
     """
     Train a 1-NN classifier using Euclidean distance on the provided data,
     then return predictions on X.
@@ -17,11 +17,18 @@ def run_model(X, y):
     Returns:
         numpy array of predictions
     """
+    # assert X_train.isnull().sum().sum() == 0, "X_train contains missing values"
+    # assert X_test.isnull().sum().sum() == 0, "X_test contains missing values"
+    X_train = X_train.apply(pd.to_numeric, errors='coerce')
+    X_test = X_test.apply(pd.to_numeric, errors='coerce')
+    
+
+    
     # Initialize and train the classifier on the provided data.
     knn_model = KNeighborsClassifier(n_neighbors=1, metric='euclidean')
-    knn_model.fit(X, y)
+    knn_model.fit(X_train, Y_train)
     # Return predictions on the same data
-    return knn_model.predict(X)
+    return knn_model.predict(X_test)
 
 # For backward compatibility, also define a global 'model'
 model = None

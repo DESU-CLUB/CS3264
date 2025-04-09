@@ -6,7 +6,7 @@ from data_util import process_data
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
-def run_model(X, y):
+def run_model(X_train, Y_train, X_test, Y_test):
     """
     Standard interface for the pipeline.
     Trains a RandomForestClassifier on the provided data and returns predictions on X.
@@ -26,9 +26,9 @@ def run_model(X, y):
         random_state=42
     )
     # Train the model on the provided data
-    rf_model.fit(X, y)
+    rf_model.fit(X_train, Y_train)
     # Return predictions on the same data
-    return rf_model.predict(X)
+    return rf_model.predict(X_test)
 
 if __name__ == "__main__":
     # Standalone execution for testing the Random Forest model.
