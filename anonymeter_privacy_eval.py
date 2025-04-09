@@ -42,20 +42,47 @@ def fetch_data(dataset_path):
 
 
 # Evaluate the Singling Out risk
-def singling_out_risk(ori, syn, control, output_dir="./results"):
-    n = min(500, len(ori), len(syn), len(control))  # ensure sample size is valid
+def singling_out_risk(ori, syn, control, run_num, output_dir="./results"):
+    # n = max(500, len(ori), len(syn), len(control))  # ensure sample size is valid
+    n = 500
 
     logger.info("Singling Out risk sample size =" + str(n))
     
     evaluator = SinglingOutEvaluator(ori=ori, 
                                  syn=syn, 
                                  control=control,
-                                 n_attacks=500)
+                                 n_attacks=n)
 
     try:
+        # Use univariate for faster runtime when evaluating large datasets, multivariate to evaluate more hidden relationships
         evaluator.evaluate(mode='univariate')
-        risk = evaluator.risk()
+        risk = evaluator.risk(confidence_level=0.95)
         logger.info(f"univariate risk = {risk}")
+        res = evaluator.results()
+        logger.info("Successs rate of main attack:", res.attack_rate)
+        logger.info("Successs rate of baseline attack:", res.baseline_rate)
+        logger.info("Successs rate of control attack:", res.control_rate)
+
+        # Collect the results in a dictionary
+        results = {
+            "main_attack_rate": {"main_attack_rate_value": res.attack_rate.value, "main_attack_rate_error": res.attack_rate.error},
+            "baseline_attack_rate": {"baseline_attack_rate_value": res.baseline_rate.value, "baseline_attack_rate_error": res.baseline_rate.error},
+            "control_attack_rate": {"control_attack_rate_value": res.control_rate.value, "control_attack_rate_error": res.control_rate.error},
+            "univariate_risk": {"univariate_risk_risk_value": risk.value,
+                                "univariate_risk_ci_lower": risk.ci[0],
+                                "univariate_risk_ci_upper": risk.ci[1]}
+        }
+
+        # Ensure the directory exists before saving the file
+        output_dir_full = os.path.join(output_dir, "privacy_results")
+        os.makedirs(output_dir_full, exist_ok=True)
+
+        # Save the results to a JSON file in the privacy_results folder
+        output_path = os.path.join(output_dir_full, f"singling_out_risk_results_{run_num}" + ".json")
+        with open(output_path, 'w') as json_file:
+            json.dump(results, json_file, indent=4)
+
+
 
     except RuntimeError as ex: 
         logger.info(f"Singling out evaluation failed with {ex}. Please re-run this cell."
@@ -105,7 +132,7 @@ def linkability_risk(ori, syn, control, aux_cols, run_num, output_dir="./results
     os.makedirs(output_dir_full, exist_ok=True)
 
     # Save the results to a JSON file in the privacy_results folder
-    output_path = os.path.join(output_dir, "privacy_results", f"linkability_risk_results_{run_num}" + ".json")
+    output_path = os.path.join(output_dir_full, f"linkability_risk_results_{run_num}" + ".json")
     with open(output_path, 'w') as json_file:
         json.dump(results, json_file, indent=4)
 
@@ -220,7 +247,8 @@ def anonymeter_eval(dataset_path="./results"):
     logger.info("Features: " + str(aux_cols_all))
 
     # Evaluate singling out risk
-    # singling_out_risk(ori, syn, control)
+    for i in range(3):
+        singling_out_risk(ori, syn, control, i)
 
 
     # Evaluate linkability risk. Need more research on what columns to choose for effective evaluation.

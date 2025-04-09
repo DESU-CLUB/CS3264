@@ -1,0 +1,19 @@
+{
+    "main_attack_rate": {
+        "main_attack_rate_value": 0.02167493210246818,
+        "main_attack_rate_error": 0.012176738806271101
+    },
+    "baseline_attack_rate": {
+        "baseline_attack_rate_value": 0.0038121702307761206,
+        "baseline_attack_rate_error": 0.00381217023077612
+    },
+    "control_attack_rate": {
+        "control_attack_rate_value": 0.009114107495263098,
+        "control_attack_rate_error": 0.007398678647200029
+    },
+    "univariate_risk": {
+        "univariate_risk_risk_value": 0.012676358299394232,
+        "univariate_risk_ci_lower": 0.0,
+        "univariate_risk_ci_upper": 0.027006769705180386
+    }
+}
