@@ -1,0 +1,19 @@
+{
+    "main_attack_rate": {
+        "main_attack_rate_value": 0.917279221665766,
+        "main_attack_rate_error": 0.049737089304563914
+    },
+    "baseline_attack_rate": {
+        "baseline_attack_rate_value": 0.2496324670005404,
+        "baseline_attack_rate_error": 0.08117867206655185
+    },
+    "control_attack_rate": {
+        "control_attack_rate_value": 0.7596404045920322,
+        "control_attack_rate_error": 0.08009552071199844
+    },
+    "n_neighbors_7_risk": {
+        "n_neighbors_7_risk_value": 0.6915454903030398,
+        "n_neighbors_7_risk_ci_lower": 0.48285556474726543,
+        "n_neighbors_7_risk_ci_upper": 0.9002354158588142
+    }
+}

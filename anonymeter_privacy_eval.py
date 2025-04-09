@@ -69,10 +69,12 @@ def linkability_risk(ori, syn, control, aux_cols, run_num, output_dir="./results
 
     # Collect the results in a dictionary
     results = {
-        "main_attack_rate": res.attack_rate,
-        "baseline_attack_rate": res.baseline_rate,
-        "control_attack_rate": res.control_rate,
-        "n_neighbors_7_risk": evaluator.risk(n_neighbors=7)
+        "main_attack_rate": {"main_attack_rate_value": res.attack_rate.value, "main_attack_rate_error": res.attack_rate.error},
+        "baseline_attack_rate": {"baseline_attack_rate_value": res.baseline_rate.value, "baseline_attack_rate_error": res.baseline_rate.error},
+        "control_attack_rate": {"control_attack_rate_value": res.control_rate.value, "control_attack_rate_error": res.control_rate.error},
+        "n_neighbors_7_risk": {"n_neighbors_7_risk_value": evaluator.risk(n_neighbors=7).value,
+                                "n_neighbors_7_risk_ci_lower": evaluator.risk(n_neighbors=7).ci[0],
+                                "n_neighbors_7_risk_ci_upper": evaluator.risk(n_neighbors=7).ci[1]}
     }
 
     logger.info("Success rate of main attack: " + str(res.attack_rate))
@@ -87,7 +89,7 @@ def linkability_risk(ori, syn, control, aux_cols, run_num, output_dir="./results
     os.makedirs(output_dir_full, exist_ok=True)
 
     # Save the results to a JSON file in the privacy_results folder
-    output_path = os.path.join(output_dir, "privacy_results", f"linkability_risk_results{run_num}" + ".json")
+    output_path = os.path.join(output_dir, "privacy_results", f"linkability_risk_results_{run_num}" + ".json")
     with open(output_path, 'w') as json_file:
         json.dump(results, json_file, indent=4)
 
@@ -157,26 +159,27 @@ def anonymeter_eval(dataset_path="./results"):
     # singling_out_risk(ori, syn, control)
 
 
-    # Evaluate linkability risk
+    # Evaluate linkability risk. Need more research on what columns to choose for effective evaluation.
     # Scenario 1: low linkability
     aux_cols_one = [
-    [aux_cols_all[0], aux_cols_all[2]],      # Psuedo Dataset A: Age only
-    [aux_cols_all[1], aux_cols_all[3]]       # Psuedo Dataset B: Gender only
+    [aux_cols_all[0]],      # Psuedo Dataset A: Age only
+    [aux_cols_all[1]]       # Psuedo Dataset B: Gender only
     ]
     # Scenario 2: mid linkability
     aux_cols_two = [
-    [aux_cols_all[0], aux_cols_all[2]],      # Psuedo Dataset A: Age only
-    [aux_cols_all[1], aux_cols_all[3]]       # Psuedo Dataset B: Gender only
+    [aux_cols_all[0], aux_cols_all[1], aux_cols_all[2], aux_cols_all[14]],      # Psuedo Dataset A: Age, Gender, Polyuria, Alopecia
+    [aux_cols_all[0], aux_cols_all[1], aux_cols_all[3], aux_cols_all[15]]       # Psuedo Dataset B: Age, Gender, Polydipsia, Obesity
     ]
     # Scenario 3: high linkability
     aux_cols_three = [
-    [],      # Psuedo Dataset A
-    []                                        # Psuedo Dataset B
+    [aux_cols_all[0], aux_cols_all[1], aux_cols_all[2], aux_cols_all[6], aux_cols_all[14]],      # Psuedo Dataset A: Age, Gender, Polyuria, Polyphagia Alopecia
+    [aux_cols_all[0], aux_cols_all[1], aux_cols_all[3], aux_cols_all[8], aux_cols_all[15]]       # Psuedo Dataset B: Age, Gender, Polydipsia, Visual blurring, Obesity
     ]
     # Evaluate different scenarios for linkability
+    aux_col_labels = ["low", "mid", "high"]
     aux_col_settings = [aux_cols_one, aux_cols_two, aux_cols_three]
-    for j in range(1):
-        linkability_risk(ori, syn, control, aux_col_settings[j], j)
+    for j in range(3):
+        linkability_risk(ori, syn, control, aux_col_settings[j], aux_col_labels[j])
 
     # Evaluate inference risk
     # for k in range(3):
