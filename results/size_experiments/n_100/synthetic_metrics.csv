@@ -1,3 +1,0 @@
-Model,Accuracy,Precision,Recall,F1_Score
-knn,0.8077,0.8586,0.8077,0.8142
-mlp,0.9712,0.9716,0.9712,0.9713
