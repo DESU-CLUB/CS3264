@@ -1,3 +1,4 @@
 .env
 venv/
 data/
+evals/models/KNN.py
