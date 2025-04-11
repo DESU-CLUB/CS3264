@@ -25,7 +25,7 @@ from basic_eval_pipeline import run_evaluation_pipeline   # <-- your function
 # ---------- CONFIG ----------
 DATASET_PATH = "./evals/dataset/andrew_diabetes.csv"
 OUTPUT_ROOT  = "./results/size_experiments"
-MODELS       = ["knn", "mlp"]          # pick any subset of your models
+MODELS       = ["knn", "mlp","svm","sgd","randomforest"]          # pick any subset of your models
 SIZES        = [100, 200, 400, 800, 1200, 1600, 2000]   # synthetic rows to generate
 # -----------------------------
 

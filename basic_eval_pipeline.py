@@ -68,7 +68,8 @@ def run_evaluation_pipeline(dataset_path, output_dir="./results", test_size=0.2,
     # Step 1: Load and split original dataset
     logger.info(f"Loading dataset from {dataset_path}")
     df = pd.read_csv(dataset_path, sep=';')
-    df['gender'] = df['gender'].apply(lambda x: 1 if str(x).strip().lower() == 'male' else 0)
+    if "gender" in df.columns:
+        df['gender'] = df['gender'].apply(lambda x: 1 if str(x).strip().lower() == 'male' else 0)
     print(f"First row of loaded data: {df.iloc[0].to_dict()}")
     print(f"Data types: {df.dtypes}")
 
