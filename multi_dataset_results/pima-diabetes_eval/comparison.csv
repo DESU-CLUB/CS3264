@@ -1,0 +1,7 @@
+Model,Original_Accuracy,Synthetic_Accuracy,Difference,Better
+randomforest,0.7208,0.7597,0.0390,Synthetic
+sgd,0.7143,0.6948,-0.0195,Original
+svm,0.6688,0.6948,0.0260,Synthetic
+mlp,0.7403,0.7403,0.0000,Equal
+naivebayes,0.7662,0.7532,-0.0130,Original
+knn,0.6753,0.6558,-0.0195,Original
