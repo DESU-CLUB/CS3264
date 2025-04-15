@@ -26,6 +26,7 @@ logger.setLevel(logging.DEBUG)
 
 # Fetch data
 def fetch_data(dataset_path):
+
     # We need 3 datasets: Original, Synthetic, Control.
     train_path = os.path.join(dataset_path, "data", "train_data.csv")
     test_path = os.path.join(dataset_path, "data", "test_data.csv")
@@ -303,40 +304,63 @@ def anonymeter_eval(dataset_path="./results"):
 
     # Evaluate singling out risk
     for i in range(3):
-        singling_out_risk(ori, syn, control, i)
+        singling_out_risk(ori, syn, control, i, output_dir=dataset_path)
 
 
     # Evaluate linkability risk. Need more research on what columns to choose for effective evaluation.
     # Scenario 1: low linkability
-    aux_cols_one = [
-    [aux_cols_all[0]],      # Psuedo Dataset A: Age only
-    [aux_cols_all[1]]       # Psuedo Dataset B: Gender only
-    ]
+    # aux_cols_one = [
+    # [aux_cols_all[0]],      # Psuedo Dataset A: Age only
+    # [aux_cols_all[1]]       # Psuedo Dataset B: Gender only
+    # ]
     # Scenario 2: mid linkability
-    aux_cols_two = [
-    [aux_cols_all[0], aux_cols_all[1], aux_cols_all[2], aux_cols_all[14]],      # Psuedo Dataset A: Age, Gender, Polyuria, Alopecia
-    [aux_cols_all[0], aux_cols_all[1], aux_cols_all[3], aux_cols_all[15]]       # Psuedo Dataset B: Age, Gender, Polydipsia, Obesity
-    ]
+    # aux_cols_two = [
+    # [aux_cols_all[0], aux_cols_all[1], aux_cols_all[2], aux_cols_all[14]],      # Psuedo Dataset A: Age, Gender, Polyuria, Alopecia
+    # [aux_cols_all[0], aux_cols_all[1], aux_cols_all[3], aux_cols_all[15]]       # Psuedo Dataset B: Age, Gender, Polydipsia, Obesity
+    # ]
     # Scenario 3: high linkability
-    aux_cols_three = [
-    [aux_cols_all[0], aux_cols_all[1], aux_cols_all[2], aux_cols_all[6], aux_cols_all[14]],      # Psuedo Dataset A: Age, Gender, Polyuria, Polyphagia Alopecia
-    [aux_cols_all[0], aux_cols_all[1], aux_cols_all[3], aux_cols_all[8], aux_cols_all[15]]       # Psuedo Dataset B: Age, Gender, Polydipsia, Visual blurring, Obesity
+    # aux_cols_three = [
+    # [aux_cols_all[0], aux_cols_all[1], aux_cols_all[2], aux_cols_all[6], aux_cols_all[14]],      # Psuedo Dataset A: Age, Gender, Polyuria, Polyphagia Alopecia
+    # [aux_cols_all[0], aux_cols_all[1], aux_cols_all[3], aux_cols_all[8], aux_cols_all[15]]       # Psuedo Dataset B: Age, Gender, Polydipsia, Visual blurring, Obesity
+    # ]
+
+    # sanity check
+    aux_cols_one = [
+    [aux_cols_all[0]],     
+    [aux_cols_all[1]]      
     ]
+
+    aux_cols_two = [
+    [aux_cols_all[0], aux_cols_all[1]],
+    [aux_cols_all[0], aux_cols_all[1]]
+    ]
+
+    aux_cols_three = [
+    [aux_cols_all[0], aux_cols_all[1], aux_cols_all[2], aux_cols_all[6]],
+    [aux_cols_all[0], aux_cols_all[1], aux_cols_all[3], aux_cols_all[7]]
+    ]
+
     # Evaluate different scenarios for linkability
     aux_col_labels = ["low", "mid", "high"]
     aux_col_settings = [aux_cols_one, aux_cols_two, aux_cols_three]
     for j in range(3):
-        linkability_risk(ori, syn, control, aux_col_settings[j], aux_col_labels[j])
+        linkability_risk(ori, syn, control, aux_col_settings[j], aux_col_labels[j], output_dir=dataset_path)
 
 
     # Evaluate inference risk
     for k in range(3):
-        inference_risk(ori, syn, control, k)
+        inference_risk(ori, syn, control, k, output_dir=dataset_path)
     
 
 if __name__ == "__main__":
     logger.info("*** Starting Anonymeter evaluation ***")
-    anonymeter_eval()
+    # anonymeter_eval()  # This is used to test using the results folder
+    
+    # Test the actual one
+    anonymeter_eval("./multi_dataset_results/andrew_diabetes_eval")
+    anonymeter_eval("./multi_dataset_results/diabetes_prediction_dataset_eval")
+    anonymeter_eval("./multi_dataset_results/pima-diabetes_eval")
+
     logger.info("\n*** Anonymeter Evaluation completed ***")
     logger.info("-----------------------------------------------------------------------------"
     "----------------------------------------------------------------------------------------")
